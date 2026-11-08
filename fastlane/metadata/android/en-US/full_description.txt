@@ -1,0 +1,18 @@
+<p>A free, open-source replacement for <b>TXD Tool</b> and <b>IMG Tool</b> for the Android version of GTA San Andreas and SA-MP mobile clients. No ads, no trackers, works offline.</p>
+<p><b>Textures (texdb)</b></p>
+<ul>
+<li>Browse the texture caches (gta3, gta_int, samp, …) with previews and search</li>
+<li>Import PNG/JPG: add or replace, case-insensitive names</li>
+<li>Formats: DXT1, DXT5, RGBA8888, RGB565, RGBA4444; mipmaps, RLE packing, size limit, power-of-two</li>
+<li>Attributes: alphamode, camnorm, streammode and any extra ones</li>
+<li>Export PNG, delete, rebuild the database to free space</li>
+</ul>
+<p><b>IMG archives</b></p>
+<ul>
+<li>Add or replace .dff, .col and other files; warning before adding new entries</li>
+<li>Export, delete, rebuild (shrinks the archive after many replacements)</li>
+</ul>
+<p><b>Audio</b>: listen, export, replace and append mp3 tracks in .osw packs.</p>
+<p><b>Mod adaptation</b>: converts PC dff + txd mods for mobile. Several models and texture dictionaries at once; every texture gets a unique name, models are rewritten, unused textures are dropped. <b>Retexture</b> mode replaces textures by name in every database.</p>
+<p>Every game file is backed up before its first change. The app needs "All files access" to edit game files.</p>
+<p>GTA and Grand Theft Auto are trademarks of Take-Two Interactive. This project is not affiliated with Rockstar Games or Take-Two Interactive.</p>

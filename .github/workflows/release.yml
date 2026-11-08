@@ -1,0 +1,59 @@
+name: Release
+
+# Push a tag like v0.1.0 to build, sign and publish a GitHub release.
+# Signing secrets (optional; without them the APK is signed with the debug key):
+#   KEYSTORE_BASE64 (base64 of the .jks), KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm ci
+      - run: npx expo prebuild --platform android --no-install
+      - name: Gradle assembleRelease
+        working-directory: android
+        env:
+          NODE_ENV: production
+        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+      - name: Sign
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          apk=android/app/build/outputs/apk/release/app-release.apk
+          out="GTA-Universal-Tool-${GITHUB_REF_NAME}.apk"
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            bt=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+            echo "$KEYSTORE_BASE64" | base64 -d > release.jks
+            "$bt/zipalign" -f -p 4 "$apk" aligned.apk
+            "$bt/apksigner" sign --ks release.jks --ks-pass env:KEYSTORE_PASSWORD --ks-key-alias "$KEY_ALIAS" --key-pass env:KEY_PASSWORD --out "$out" aligned.apk
+            rm release.jks
+          else
+            echo "::warning::No signing secrets: publishing the debug-signed APK"
+            cp "$apk" "$out"
+          fi
+          sha256sum "$out" > "$out.sha256"
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            GTA-Universal-Tool-*.apk
+            GTA-Universal-Tool-*.apk.sha256
+          generate_release_notes: true
