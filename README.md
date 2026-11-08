@@ -83,15 +83,18 @@ The app is developed in spare time. Ways to help: ⭐ star the repo, subscribe t
 
 ## Development
 
-Requirements: Node.js 22+, JDK 21, Android SDK (API 36). The UI is React Native + Expo; every binary format is
-handled in a native Kotlin module (`modules/gta-native`), whose `core` package has no Android dependencies.
+Requirements: JDK 21, Android SDK (API 36). Native Android app: Kotlin + Jetpack Compose, one activity. Every
+binary format lives in the `core` package, which has no Android dependencies.
 
 ```bash
-npm ci
-npm run check        # typecheck + lint
-npm run test:core    # Kotlin format self-test (synthetic files; plus a real game folder if given)
-npm run build:apk    # release APK (Windows script; CI uses the same Gradle steps on Linux)
+./gradlew testDebugUnitTest      # unit tests
+./gradlew installDebug           # debug build on a device (installs next to the release app)
+./gradlew assembleRelease        # release APK (signed when keystore.properties exists)
+scripts/test-core.sh [game-dir]  # Kotlin format self-test (synthetic files; plus a real game folder if given)
 ```
+
+On Windows, `scripts/gradle.ps1 <tasks>` runs Gradle with the toolchain on drive D:, and
+`scripts/gradle.ps1 -Install` builds the release APK and installs it over ADB.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 

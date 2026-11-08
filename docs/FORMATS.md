@@ -1,7 +1,7 @@
 # Mobile GTA SA file formats
 
 Reverse-engineered from the Android version (64-bit, SA-MP clients) and verified on real game files
-(`npm run test:core`). All integers are little-endian.
+(`scripts/test-core.sh`). All integers are little-endian.
 
 ## Texture database — `texdb/<db>/`
 

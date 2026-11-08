@@ -1,0 +1,40 @@
+// App icon names → Lucide vector drawables (res/drawable/ic_*.xml, ISC license).
+package io.github.timmylich.gtatool.ui
+
+import io.github.timmylich.gtatool.R
+
+val ICONS: Map<String, Int> = mapOf(
+  "folder" to R.drawable.ic_folder,
+  "file" to R.drawable.ic_file,
+  "box" to R.drawable.ic_box,
+  "audio" to R.drawable.ic_audio,
+  "wand" to R.drawable.ic_wand,
+  "image" to R.drawable.ic_image,
+  "images" to R.drawable.ic_images,
+  "filebox" to R.drawable.ic_filebox,
+  "heart" to R.drawable.ic_heart,
+  "settings" to R.drawable.ic_settings,
+  "plus" to R.drawable.ic_plus,
+  "download" to R.drawable.ic_download,
+  "trash" to R.drawable.ic_trash,
+  "recycle" to R.drawable.ic_recycle,
+  "checkall" to R.drawable.ic_checkall,
+  "close" to R.drawable.ic_close,
+  "up" to R.drawable.ic_up,
+  "play" to R.drawable.ic_play,
+  "pause" to R.drawable.ic_pause,
+  "replace" to R.drawable.ic_replace,
+  "undo" to R.drawable.ic_undo,
+  "eraser" to R.drawable.ic_eraser,
+  "code" to R.drawable.ic_code,
+  "send" to R.drawable.ic_send,
+  "star" to R.drawable.ic_star,
+  "bug" to R.drawable.ic_bug,
+  "globe" to R.drawable.ic_globe,
+  "copy" to R.drawable.ic_copy,
+  "check" to R.drawable.ic_check,
+  "database" to R.drawable.ic_database,
+  "left" to R.drawable.ic_left,
+  "search" to R.drawable.ic_search,
+  "info" to R.drawable.ic_info,
+)

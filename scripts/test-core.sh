@@ -5,6 +5,6 @@ set -eu
 root=$(cd "$(dirname "$0")/.." && pwd)
 out=${TMPDIR:-/tmp}/gut-core-test
 mkdir -p "$out"
-kotlinc "$root"/modules/gta-native/android/src/main/java/io/github/timmylich/gtatool/core/*.kt "$root/scripts/CoreTest.kt" \
+kotlinc "$root"/app/src/main/java/io/github/timmylich/gtatool/core/*.kt "$root/scripts/CoreTest.kt" \
   -include-runtime -d "$out/test.jar" -nowarn
 java -Xmx2g -cp "$out/test.jar" CoreTestKt "${1:-none}" "$out"

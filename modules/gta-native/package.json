@@ -1,7 +1,0 @@
-{
-  "name": "gta-native",
-  "version": "1.0.0",
-  "private": true,
-  "main": "index.ts",
-  "description": "GTA SA mobile file formats (texdb, IMG, OSW audio, RenderWare DFF/TXD) for GTA Universal Tool."
-}

@@ -12,17 +12,21 @@ concurrency:
 
 jobs:
   check:
-    name: Typecheck & lint
+    name: Tests, lint, APK
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-java@v4
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npx expo lint
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew testDebugUnitTest lintDebug assembleRelease --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gta-universal-tool-${{ github.sha }}
+          path: app/build/outputs/apk/release/*.apk
 
   core:
     name: Format self-test
@@ -41,30 +45,3 @@ jobs:
           unzip -q kotlin.zip -d "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/kotlinc/bin" >> "$GITHUB_PATH"
       - run: sh scripts/test-core.sh
-
-  apk:
-    name: Build APK
-    needs: [check, core]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-      - uses: gradle/actions/setup-gradle@v4
-      - run: npm ci
-      - run: npx expo prebuild --platform android --no-install
-      - name: Gradle assembleRelease
-        working-directory: android
-        env:
-          NODE_ENV: production
-        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a
-      - uses: actions/upload-artifact@v4
-        with:
-          name: gta-universal-tool-${{ github.sha }}
-          path: android/app/build/outputs/apk/release/app-release.apk

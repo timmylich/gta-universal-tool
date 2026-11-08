@@ -2,6 +2,6 @@
 
 ## Checks
 
-- [ ] `npm run check`
-- [ ] `npm run test:core`
+- [ ] `./gradlew testDebugUnitTest lintDebug`
+- [ ] `scripts/test-core.sh` (format self-test)
 - [ ] Tested on a device (which game/client?)
