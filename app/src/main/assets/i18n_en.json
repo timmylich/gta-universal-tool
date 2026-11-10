@@ -47,7 +47,11 @@
     "adapt": "Mod adaptation",
     "adaptHint": "PC dff + txd → mobile without texture name clashes",
     "settings": "Settings",
-    "support": "Support the project"
+    "support": "Support the project",
+    "guide": "How to use",
+    "guideHint": "How to change textures, models, sounds and retexture the map",
+    "credit": "Made with the support of San Fierro RolePlay",
+    "askSupport": "The app is free and ad-free. If it helped you, please support its development."
   },
   "perm": {
     "title": "File access needed",
@@ -112,7 +116,9 @@
     "replacePng": "Replace with image",
     "removeAsk": "Remove {0} from the database? Models that use them will lose their textures.",
     "exportDir": "Export to",
-    "filter": "Filter by name"
+    "filter": "Filter by name",
+    "asReplaced": "As replaced",
+    "maxSizeHint": "\"As replaced\": never bigger than the texture being replaced, so the game does not get heavier."
   },
   "img": {
     "title": "IMG archives",
@@ -150,7 +156,7 @@
     "modeModels": "Models + textures",
     "modeRetex": "Retexture",
     "hint": "On PC every model has its own .txd; on mobile all textures live in shared caches (gta3 etc.) where equal names clash. Adaptation gives every texture a unique \"prefix_random\" name, writes the new names into the .dff and drops unused textures. Several models and .txd files can be adapted together: one .txd may serve many models; a texture is looked up in the .txd named like the model first, then in the others.",
-    "retexHint": "A retexture only changes textures; the game models stay the same. Every texture of the .txd replaces the texture with the same name in every database that has it.",
+    "retexHint": "Only textures change; the game models stay the same. Every texture of a .txd goes where the game looks for it for that TXD (the cache stores one name from different TXDs as \"name_txd\" plus alias links). Works for whole-map retextures too: add the folder with unpacked .txd files.",
     "dff": "Models .dff",
     "txd": "Textures .txd",
     "prefix": "Prefix",
@@ -164,10 +170,15 @@
     "done": "Done",
     "savedTo": "Files saved to {0}",
     "resultModels": "Models: {0}, unique textures: {1}",
-    "retexFound": "Will be replaced",
     "retexNone": "Not in any database",
     "addMissing": "Add missing ones to a database",
-    "retexSkipped": "Skipped (not in any database)"
+    "retexSkipped": "Skipped (not in any database)",
+    "addFolder": "Add folder",
+    "clear": "Clear",
+    "noTxd": "No .txd files in this folder",
+    "retexPlan": "Textures to write: {0}, of them separate copies for different TXDs: {1}. Shared links (alias): {2}.",
+    "skipSame": "Skip unchanged",
+    "skipSameHint": "Textures that are the same in the mod as in the game are not rewritten: faster and no quality loss."
   },
   "settings": {
     "title": "Settings",
@@ -209,12 +220,39 @@
     },
     "copy": "Copy address",
     "copied": "Address copied",
-    "evmNote": "One EVM address works on every EVM network. Check the network before sending."
+    "evmNote": "One EVM address works on every EVM network. Check the network before sending.",
+    "monitoring": "SA:MP Monitoring Bot",
+    "monitoringHint": "Telegram bot: notifications about events on SA:MP servers (online, restarts and more).",
+    "alsoTry": "Useful for SA:MP"
   },
   "res": {
     "added": "Added",
     "replaced": "Replaced",
     "skipped": "Skipped",
-    "errors": "Errors"
+    "errors": "Errors",
+    "written": "Written",
+    "unchanged": "Unchanged",
+    "aliases": "Links (alias)"
+  },
+  "guide": {
+    "title": "How to use",
+    "items": [
+      "Getting started",
+      "1. Allow \"All files access\": without it the app cannot see the game files.\n2. Choose the game folder: the one with texdb/, audio/, data/. Usually /SFRP64, /Brentwood and similar, or Android/data/<game package>/files. The app looks for such folders itself.\n3. Backups are on by default: before the first change every file is copied to /GTAUniversalTool/backup.\n4. Close the game before making changes and start it again afterwards.",
+      "Textures (texdb)",
+      "Texture caches hold what PC keeps in .txd files. gta3 — the map and objects, gta_int — interiors, txd — vehicles and more, samp — SA:MP objects, mobile and menu — the interface.\n• One texture: open a database, find the texture with search, tap it → \"Replace with image\".\n• Many at once: \"+\" in the database header, pick PNG/JPG files. The file name without extension is the texture name (case does not matter). New names are added, existing ones replaced.\n• Long press selects several textures to export or delete.\n• \"alias\" is a link to another texture with no data of its own. Replacing an alias turns it into a separate texture; the original stays as is.\n• After many replacements tap \"Rebuild .dat\" to free the space of old data.",
+      "Import options",
+      "\"Auto\" format fits almost always: DXT1 without transparency, DXT5 with it. Keep mipmaps and RLE on.\n\"Max size → As replaced\" never makes a texture bigger than the original: the game does not get heavier and does not crash for lack of memory.\nalphamode: 0 — opaque, 1 — cutout (foliage, fences), 2 — translucent (glass).",
+      "IMG archives",
+      "IMG files are archives of models (.dff), collisions (.col) and animations. texdb/gta3.img holds the map and vehicle models.\n• \"+\" adds or replaces files: Car.DFF replaces car.dff.\n• Tap a file to export it, replace it with any file or delete it.\n• Add new models only if the game will load them (an .ide must describe them): extra files may crash the game.\n• \"Rebuild\" removes the gaps left by replacements and shrinks the archive.",
+      "Audio",
+      ".osw packs in the audio folder are sets of mp3 files. The game plays tracks by number, so the order is kept. ▶ plays, \"Replace mp3\" picks your file, \"+\" appends tracks. \"Apply\" writes all changes in one rebuild.",
+      "Models from PC",
+      "Adaptation → \"Models + textures\". Add .dff files (.txd files with the same names are picked up automatically) and other .txd files if needed. Every texture gets a unique \"prefix_random\" name, the .dff files are rewritten, and the textures can go straight into gta3 and the models into an IMG archive. To replace a model in the game, the .dff name must match the replaced one (e.g. infernus.dff). A copy of the result is saved to /GTAUniversalTool/adapted.",
+      "Retexture, including the whole map",
+      "Adaptation → \"Retexture\". Only textures change; models stay the same.\n• Unpack the .txd files of a PC mod (e.g. from the gta3.img of a winter mod) into a folder on the phone and tap \"Add folder\": every .txd is taken, subfolders included.\n• On PC different .txd files may have textures with the same name but different pictures. The mobile cache stores those as \"name_txd\" (des_dirt1_cs_mountain), and identical ones as links (alias) to one copy. The app puts every texture where the game looks for it for that TXD: identical pictures are written once, different ones as separate copies.\n• \"Skip unchanged\" leaves textures that are the same in the mod as in the game: faster, and the cache does not grow.\n• \"Max size → As replaced\" keeps the map from getting heavier.\n• Keep 1–2 GB free. After a retexture tap \"Rebuild .dat\" in the gta3 database.",
+      "If something goes wrong",
+      "The game crashes or textures are black — restore the files from /GTAUniversalTool/backup: inside, the path from the storage root is repeated (e.g. backup/SFRP64/texdb/gta3/…). Common causes: textures that are too big, extra models in an IMG, damaged .dff files. Send bugs and ideas via \"Support the project → Report a bug\"."
+    ]
   }
 }

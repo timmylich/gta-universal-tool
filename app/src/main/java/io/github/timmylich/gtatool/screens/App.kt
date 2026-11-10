@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import io.github.timmylich.gtatool.SFRP_URL
 import io.github.timmylich.gtatool.data.Store
 import io.github.timmylich.gtatool.lib.Gta
 import io.github.timmylich.gtatool.ui.Button
@@ -48,6 +49,7 @@ import io.github.timmylich.gtatool.ui.T
 import io.github.timmylich.gtatool.ui.act
 import io.github.timmylich.gtatool.ui.c
 import io.github.timmylich.gtatool.ui.pickDir
+import io.github.timmylich.gtatool.ui.tap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -64,6 +66,7 @@ fun AppScreen(r: Route) = when (r) {
   Route.Adapt -> Adapt()
   Route.Settings -> SettingsScreen()
   Route.Support -> Support()
+  Route.Guide -> Guide()
 }
 
 fun openUrl(ctx: Context, url: String) {
@@ -168,6 +171,13 @@ private fun Home() {
           }
         }
       }
+    }
+    if (access) Card { ListRow(L["home.guide"], L["home.guideHint"], "info") { Nav.push(Route.Guide) } }
+    Column(Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 4.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+      T(L["home.credit"], dim = true, size = 12.5f, center = true)
+      T("sf-rp.com", Modifier.tap(label = "sf-rp.com") { openUrl(ctx, SFRP_URL) }.padding(4.dp), color = c.accent, size = 13f, semi = true)
+      T(L["home.askSupport"], dim = true, size = 12.5f, center = true)
+      Button(L["home.support"], kind = "soft", icon = "heart", small = true) { Nav.push(Route.Support) }
     }
   }
 }

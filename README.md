@@ -1,104 +1,114 @@
 <div align="center">
 
-<img src="fastlane/metadata/android/en-US/images/icon.png" width="112" alt="GTA Universal Tool icon" />
+<img src="fastlane/metadata/android/en-US/images/icon.png" width="112" alt="GTA Universal Tool" />
 
 # GTA Universal Tool
 
-**All-in-one modding tool for mobile GTA San Andreas on Android**
+**Всё для моддинга мобильной GTA San Andreas на Android**
 
-Texture databases (texdb) · IMG archives · audio packs · PC mod adaptation — right on the phone.
+Кэши текстур (texdb) · архивы IMG · аудио · адаптация модов с ПК, в том числе ретекстур всей карты — прямо на телефоне.
 
 [![CI](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/timmylich/gta-universal-tool)](https://github.com/timmylich/gta-universal-tool/releases/latest)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 [![Telegram](https://img.shields.io/badge/Telegram-channel-26A5E4?logo=telegram)](https://t.me/timmylich_portfolio)
 
-[Русский](#русский) · [English](#english)
+**Русский** · [English](README.en.md) · [Español](README.es.md) · [Bahasa Indonesia](README.id.md)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="Home screen" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="Texture database" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="" />
 
 </div>
 
-## English
+Бесплатная замена **TXD Tool** и **IMG Tool** с открытым кодом для мобильной GTA San Andreas и SA-MP клиентов. Без рекламы и трекеров, работает офлайн.
 
-A free, open-source replacement for **TXD Tool** and **IMG Tool** for the Android version of GTA San Andreas
-and SA-MP mobile clients. No ads, no trackers, works offline.
+Создано при поддержке **[San Fierro RolePlay](https://sf-rp.com)**.
 
-### Features
+> Играете на SA:MP-серверах? **[SA:MP Monitoring Bot](https://t.me/samp_monitoring_bot)** присылает в Telegram уведомления о событиях на серверах.
 
-- **Textures (texdb)** — browse the texture caches (`texdb/gta3`, `gta_int`, `samp`, …) with previews and search.
-  Import PNG/JPG (add or replace; names are case-insensitive), pick the format (auto / DXT1 / DXT5 / RGBA8888 /
-  RGB565 / RGBA4444), mipmaps, RLE packing, size limit, power-of-two, `alphamode`, `camnorm`, `streammode` and
-  extra attributes. Edit attributes, export PNG, delete, rebuild `.dat` to drop data of replaced textures.
-- **IMG archives** — add/replace `.dff`, `.col` and other files (`Car.DFF` replaces the existing `car.dff`),
-  warning before adding new entries, replace an entry with any file, export, delete, **rebuild** (removes the gaps
-  left by replacements and shrinks the archive).
-- **Audio** — `.osw` packs: listen, export, replace mp3 tracks, append tracks; the pack and its `.idx` are rebuilt.
-- **Mod adaptation** — PC `dff + txd` → mobile. Several models and dictionaries at once (one TXD may serve many
-  models); every used texture gets a unique `prefix_random` name, models are rewritten (incl. MatFX environment
-  and specular maps), unused textures are dropped, identical images are stored once. Optionally imports the
-  textures into a texdb and the models into an IMG in one step.
-- **Retexture** — only `.txd`: every texture replaces the texture with the same name in every database that has it.
-- **Backups** — before the first change each game file is copied to `/sdcard/GTAUniversalTool/backup/`.
+## Установка
 
-### Install
+1. Скачайте APK со страницы [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) и установите.
+2. Откройте приложение и разрешите «Доступ ко всем файлам» (Android 11+).
+3. Выберите папку игры — дальше по инструкции ниже. Та же инструкция есть в приложении: главный экран → «Инструкция».
 
-- [GitHub Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) (APK)
-- F-Droid — submission in progress
+## Инструкция
 
-The app needs the **All files access** permission (Android 11+) to edit game files in shared storage.
+### С чего начать
 
-### Supported files
+1. Разрешите «Доступ ко всем файлам» — без него приложение не видит файлы игры.
 
-| What | Where | Notes |
+2. Выберите папку игры: в ней лежат texdb/, audio/, data/. Обычно это /SFRP64, /Brentwood и т. п. или Android/data/<пакет игры>/files. Приложение ищет такие папки само.
+
+3. Резервные копии включены по умолчанию: перед первым изменением каждый файл копируется в /GTAUniversalTool/backup.
+
+4. Закрывайте игру перед изменениями и перезапускайте её после.
+
+### Текстуры (texdb)
+
+Кэши текстур — то, что на ПК лежит в .txd. gta3 — карта и объекты, gta_int — интерьеры, txd — транспорт и прочее, samp — объекты SA:MP, mobile и menu — интерфейс.
+- Одна текстура: откройте базу, найдите текстуру поиском, нажмите на неё → «Заменить картинкой».
+- Много сразу: «+» в шапке базы, выберите PNG/JPG. Имя файла без расширения = имя текстуры (регистр не важен). Новые имена добавятся, существующие заменятся.
+- Долгое нажатие выделяет несколько текстур для экспорта или удаления.
+- «alias» — ссылка на другую текстуру без своих данных. Если заменить алиас, он станет отдельной текстурой, а оригинал не изменится.
+- После многих замен нажмите «Пересобрать .dat» — освободится место от старых данных.
+
+### Настройки импорта
+
+Формат «Авто» подходит почти всегда: DXT1 без прозрачности, DXT5 с ней. Мип-карты и RLE оставьте включёнными.
+
+«Макс. размер → Как у заменяемой» не даст сделать текстуру больше оригинала: игра не станет тяжелее и не будет вылетать от нехватки памяти.
+
+alphamode: 0 — непрозрачная, 1 — вырез (листва, решётки), 2 — полупрозрачная (стёкла).
+
+### Архивы IMG
+
+IMG — архивы моделей (.dff), коллизий (.col) и анимаций. В texdb/gta3.img лежат модели карты и транспорта.
+- «+» добавляет или заменяет файлы: Car.DFF заменит car.dff.
+- Нажатие на файл — экспорт, замена любым файлом или удаление.
+- Новые модели добавляйте, только если игра их загрузит (их должен описывать .ide): лишние файлы могут вызывать вылеты.
+- «Пересобрать» убирает пустоты после замен и уменьшает архив.
+
+### Аудио
+
+Паки .osw в папке audio — наборы mp3. Игра проигрывает треки по номерам, поэтому порядок сохраняется. ▶ — прослушать, «Заменить mp3» — выбрать свой файл, «+» — добавить треки в конец. Изменения записываются кнопкой «Применить» за одну пересборку.
+
+### Модели с ПК
+
+Адаптация → «Модели + текстуры». Добавьте .dff (одноимённые .txd подхватятся сами) и при необходимости другие .txd. Каждая текстура получит уникальное имя «префикс_случайное», .dff будут переписаны, текстуры можно сразу импортировать в gta3, а модели — в архив IMG. Чтобы заменить модель в игре, имя .dff должно совпадать с заменяемым (например, infernus.dff). Копия результата сохраняется в /GTAUniversalTool/adapted.
+
+### Ретекстур, в том числе всей карты
+
+Адаптация → «Ретекстур». Меняются только текстуры, модели остаются прежними.
+- Распакуйте .txd из ПК-мода (например, из gta3.img зимнего мода) в папку на телефоне и нажмите «Добавить папку» — возьмутся все .txd, включая подпапки.
+- На ПК в разных .txd бывают текстуры с одним именем, но разной картинкой. В мобильном кэше они хранятся как «имя_txd» (des_dirt1_cs_mountain), а одинаковые — как ссылки (alias) на одну копию. Приложение кладёт каждую текстуру туда, где игра ищет её для этого TXD: одинаковые картинки записываются один раз, разные — отдельными копиями.
+- «Пропускать неизменённые» не трогает текстуры, которые в моде такие же, как в игре: так быстрее и кэш не раздувается.
+- «Макс. размер → Как у заменяемой» — чтобы карта не стала тяжелее.
+- Держите свободными 1–2 ГБ. После ретекстура нажмите «Пересобрать .dat» в базе gta3.
+
+### Если что-то пошло не так
+
+Игра вылетает или текстуры чёрные — верните файлы из /GTAUniversalTool/backup: внутри повторяется путь от корня памяти (например, backup/SFRP64/texdb/gta3/…). Частые причины: слишком большие текстуры, лишние модели в IMG, повреждённые .dff. Ошибки и идеи присылайте через «Поддержать проект → Сообщить об ошибке».
+
+## Поддерживаемые файлы
+
+| Что | Где | Примечание |
 |---|---|---|
-| Texture databases | `texdb/<db>/<db>.{txt,dxt.toc,dxt.dat,dxt.tmb}` | DXT1, DXT5, RGBA8888, RGB565, RGBA4444, RLE |
-| Archives | `*.img` (VER2) | dff, col, ipl, ifp, … |
-| Audio | `audio/*/*.osw` + `.osw.idx` | stored ZIP of mp3 |
-| PC mods | `.dff` + `.txd` (D3D8/D3D9) | DXT1/3/5, 8888, 888, 565, 1555, 4444, PAL8 |
+| Кэши текстур | `texdb/<база>/<база>.{txt,dxt.toc,dxt.dat,dxt.tmb}` | DXT1, DXT5, RGBA8888, RGB565, RGBA4444, RLE, алиасы |
+| Архивы | `*.img` (VER2) | dff, col, ipl, ifp, … |
+| Аудио | `audio/*/*.osw` + `.osw.idx` | ZIP без сжатия с mp3 |
+| Моды с ПК | `.dff` + `.txd` (D3D8/D3D9) | DXT1/3/5, 8888, 888, 565, 1555, 4444, PAL8 |
 
-The formats are documented in [docs/FORMATS.md](docs/FORMATS.md).
+Форматы описаны в [docs/FORMATS.md](docs/FORMATS.md).
 
-## Русский
+## Поддержать проект
 
-Бесплатная замена **TXD Tool** и **IMG Tool** с открытым кодом для мобильной GTA San Andreas и SA-MP клиентов
-на Android. Без рекламы и трекеров, работает офлайн.
+Приложение развивается в свободное время. Если оно вам помогло: поставьте ⭐ репозиторию, подпишитесь на [Telegram-канал](https://t.me/timmylich_portfolio), сообщайте об ошибках или поддержите финансово (в приложении: ♥ → «Поддержать проект»).
 
-- **Текстуры (texdb)** — просмотр кэшей текстур с превью и поиском; импорт PNG/JPG с выбором формата, мип-карт,
-  RLE, размера, `alphamode`, `camnorm`, `streammode`; редактирование атрибутов, экспорт, удаление, пересборка `.dat`.
-- **IMG** — добавление/замена `.dff`, `.col` и других файлов (`Car.DFF` заменит `car.dff`), предупреждение перед
-  добавлением новых, экспорт, удаление, **пересборка** (уменьшает архив после множества замен).
-- **Аудио** — прослушивание, экспорт, замена и добавление mp3 в паках `.osw`.
-- **Адаптация модов** — ПК `dff + txd` → мобильная версия: сразу несколько моделей и `.txd` (один `.txd` может
-  обслуживать много моделей), уникальные имена текстур `префикс_случайное`, правка `.dff`, удаление лишних
-  текстур, сразу импорт в texdb и IMG.
-- **Ретекстур** — только `.txd`: текстуры заменяются по своим именам во всех базах, где они есть.
-- **Резервные копии** — перед первым изменением каждый файл копируется в `/sdcard/GTAUniversalTool/backup/`.
+## Разработка
 
-## Support the project
+Нативное Android-приложение: Kotlin + Jetpack Compose. Сборка и тесты — в [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The app is developed in spare time. Ways to help: ⭐ star the repo, subscribe to the
-[Telegram channel](https://t.me/timmylich_portfolio), report bugs, or donate (in the app: Settings → Support).
+## Лицензия
 
-## Development
-
-Requirements: JDK 21, Android SDK (API 36). Native Android app: Kotlin + Jetpack Compose, one activity. Every
-binary format lives in the `core` package, which has no Android dependencies.
-
-```bash
-./gradlew testDebugUnitTest      # unit tests
-./gradlew installDebug           # debug build on a device (installs next to the release app)
-./gradlew assembleRelease        # release APK (signed when keystore.properties exists)
-scripts/test-core.sh [game-dir]  # Kotlin format self-test (synthetic files; plus a real game folder if given)
-```
-
-On Windows, `scripts/gradle.ps1 <tasks>` runs Gradle with the toolchain on drive D:, and
-`scripts/gradle.ps1 -Install` builds the release APK and installs it over ADB.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## License
-
-[GNU AGPL v3.0 or later](LICENSE). GTA and Grand Theft Auto are trademarks of Take-Two Interactive; this project
-is not affiliated with or endorsed by Rockstar Games or Take-Two Interactive.
+[GNU AGPL v3.0 или новее](LICENSE). GTA и Grand Theft Auto — торговые марки Take-Two Interactive; проект с ними не связан. Не публикуйте файлы игры.

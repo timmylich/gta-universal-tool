@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import io.github.timmylich.gtatool.BuildConfig
 import io.github.timmylich.gtatool.ISSUES_URL
+import io.github.timmylich.gtatool.MONITORING_URL
 import io.github.timmylich.gtatool.REPO_URL
 import io.github.timmylich.gtatool.TELEGRAM_URL
 import io.github.timmylich.gtatool.TRIBUTE_TELEGRAM_URL
@@ -63,7 +64,7 @@ fun SettingsScreen() {
   Screen(L["settings.title"]) {
     Card(vertical = 6.dp) {
       Labeled(L["settings.language"]) {
-        Segmented(s.language, listOf("system" to L["settings.system"], "ru" to "Русский", "en" to "English")) { v -> Store.update { copy(language = v) } }
+        Segmented(s.language, listOf("system" to L["settings.system"], "ru" to "Русский", "en" to "English", "es" to "Español", "id" to "Bahasa Indonesia")) { v -> Store.update { copy(language = v) } }
       }
       Labeled(L["settings.theme"]) {
         Segmented(s.theme, listOf("system" to L["settings.system"], "light" to L["settings.light"], "dark" to L["settings.dark"])) { v -> Store.update { copy(theme = v) } }
@@ -127,10 +128,25 @@ fun Support() {
       }
     }
     T(L["donation.evmNote"], dim = true, size = 11f)
+    T(L["donation.alsoTry"], Modifier.padding(top = 8.dp), semi = true, size = 16f)
+    Card { ListRow(L["donation.monitoring"], L["donation.monitoringHint"], "send") { openUrl(ctx, MONITORING_URL) } }
     T(L["donation.otherWays"], Modifier.padding(top = 8.dp), semi = true, size = 16f)
     Button(L["donation.star"], Modifier.fillMaxWidth(), "ghost", "star") { openUrl(ctx, REPO_URL) }
     Button(L["donation.telegram"], Modifier.fillMaxWidth(), "ghost", "send") { openUrl(ctx, TELEGRAM_URL) }
     Button(L["donation.report"], Modifier.fillMaxWidth(), "ghost", "bug") { openUrl(ctx, ISSUES_URL) }
+  }
+}
+
+/** Step-by-step help: pairs of (title, text) from the dictionary. */
+@Composable
+fun Guide() {
+  Screen(L["guide.title"]) {
+    for ((title, text) in L.list("guide.items").chunked(2).map { it[0] to it[1] }) Card {
+      Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        T(title, semi = true, size = 16f)
+        T(text, size = 14f)
+      }
+    }
   }
 }
 

@@ -96,6 +96,10 @@ fun FilePickerHost() {
       IconButton("close", L["common.close"]) { finish(null) }
       IconButton("up", L["browser.up"]) { up() }
       T(dir.removePrefix(root).ifEmpty { "/" }, Modifier.weight(1f), dim = true, size = 13f, maxLines = 2)
+      if (req.multi) IconButton("checkall", L["common.all"]) {
+        val files = items.filter { !it.dir }.map { "$dir/${it.name}" }
+        sel = if (sel.containsAll(files)) sel - files.toSet() else sel + files
+      }
     }
     Box(Modifier.weight(1f)) {
       if (items.isEmpty()) Empty(L["browser.empty"])

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import io.github.timmylich.gtatool.data.Store
 import io.github.timmylich.gtatool.lib.AdaptInfo
 import io.github.timmylich.gtatool.lib.Gta
-import io.github.timmylich.gtatool.lib.RetexItem
+import io.github.timmylich.gtatool.lib.RetexInfo
 import io.github.timmylich.gtatool.ui.Button
 import io.github.timmylich.gtatool.ui.Card
 import io.github.timmylich.gtatool.ui.Divider
@@ -36,6 +36,7 @@ import io.github.timmylich.gtatool.ui.Icon
 import io.github.timmylich.gtatool.ui.Input
 import io.github.timmylich.gtatool.ui.L
 import io.github.timmylich.gtatool.ui.Labeled
+import io.github.timmylich.gtatool.ui.Loading
 import io.github.timmylich.gtatool.ui.Screen
 import io.github.timmylich.gtatool.ui.Segmented
 import io.github.timmylich.gtatool.ui.T
@@ -44,6 +45,7 @@ import io.github.timmylich.gtatool.ui.act
 import io.github.timmylich.gtatool.ui.alert
 import io.github.timmylich.gtatool.ui.c
 import io.github.timmylich.gtatool.ui.currentDict
+import io.github.timmylich.gtatool.ui.pickDir
 import io.github.timmylich.gtatool.ui.pickFiles
 import io.github.timmylich.gtatool.ui.tap
 import io.github.timmylich.gtatool.ui.work
@@ -103,18 +105,23 @@ fun Adapt() {
   var toDb by remember { mutableStateOf(true) }
   var toImg by remember { mutableStateOf(false) }
   var addMissing by remember { mutableStateOf(false) }
+  var skipSame by remember { mutableStateOf(true) }
   var o by remember { mutableStateOf(Store.s.texImport) }
 
   // Analysis is keyed by the inputs: a stale result is never shown for a changed selection.
   var models by remember { mutableStateOf<AdaptInfo?>(null) }
-  var retex by remember { mutableStateOf<List<RetexItem>?>(null) }
-  LaunchedEffect(mode, dffs, txds) {
+  var retex by remember { mutableStateOf<RetexInfo?>(null) }
+  var analyzing by remember { mutableStateOf(false) }
+  val fallback = if (addMissing) dbPath else null
+  LaunchedEffect(mode, dffs, txds, fallback) {
     models = null
     retex = null
     if (txds.isEmpty() || (mode == "models" && dffs.isEmpty())) return@LaunchedEffect
+    analyzing = true
     runCatching {
-      withContext(Dispatchers.IO) { if (mode == "models") models = Gta.adaptAnalyze(dffs, txds) else retex = Gta.retexAnalyze(gameDir, txds) }
+      withContext(Dispatchers.IO) { if (mode == "models") models = Gta.adaptAnalyze(dffs, txds) else retex = Gta.retexAnalyze(gameDir, txds, fallback) }
     }.onFailure { alert(currentDict["common.error"], it.message ?: it.toString()) }
+    analyzing = false
   }
 
   val addDffs = {
@@ -127,6 +134,14 @@ fun Adapt() {
     }
   }
   val addTxds = { act { pickFiles(listOf(".txd"), multi = true)?.let { txds = (txds + it).distinct() } } }
+  // Whole-map packs: every .txd inside a folder (an unpacked gta3.img), subfolders included.
+  val addTxdDir = {
+    act {
+      val dir = pickDir() ?: return@act
+      val found = withContext(Dispatchers.IO) { File(dir).walkTopDown().filter { it.isFile && it.name.endsWith(".txd", true) }.map { it.path }.toList() }
+      if (found.isEmpty()) alert(currentDict["adapt.noTxd"]) else txds = (txds + found).distinct()
+    }
+  }
   val setOpt = { v: io.github.timmylich.gtatool.data.ImportOptions -> o = v; saveImportOptions(v) }
 
   val goModels = {
@@ -144,10 +159,10 @@ fun Adapt() {
   val goRetex = {
     act {
       val d = currentDict
-      val r = work { Gta.retexRun(gameDir, txds, o, if (addMissing) dbPath else null) } ?: return@act
+      val r = work { Gta.retexRun(gameDir, txds, o, fallback, skipSame) } ?: return@act
       Changes.bump()
-      val msg = d.result(Triple("replaced", r.replaced.size, true), Triple("added", r.added.size, true), Triple("skipped", r.skipped.size, false), Triple("errors", r.failed.size, false)) +
-        (if (r.skipped.isNotEmpty()) "\n\n${d["adapt.retexSkipped"]}: ${r.skipped.joinToString(", ")}" else "")
+      val msg = d.result(Triple("written", r.written, true), Triple("unchanged", r.unchanged, false), Triple("aliases", r.aliases, false), Triple("skipped", r.missing.size, false), Triple("errors", r.failed.size, false)) +
+        (if (r.missing.isNotEmpty()) "\n\n${d["adapt.retexSkipped"]}: ${r.missing.take(50).joinToString(", ")}" + (if (r.missing.size > 50) " … +${r.missing.size - 50}" else "") else "")
       alert(d["adapt.done"], withFailures(msg, r.failed))
     }
   }
@@ -155,8 +170,7 @@ fun Adapt() {
   val dbPicker = @Composable {
     Labeled("texdb") { Segmented(dbPath, dbs.map { it.path to it.name }) { db = it } }
   }
-  val retexMissing = retex?.filter { it.dbs.isEmpty() } ?: emptyList()
-  val canRun = if (mode == "models") (models?.textures ?: 0) > 0 else !retex.isNullOrEmpty()
+  val canRun = !analyzing && if (mode == "models") (models?.textures ?: 0) > 0 else (retex?.writes ?: 0) > 0
 
   Screen(L["adapt.title"], bottom = {
     Button(if (mode == "models") L["adapt.run"] else L["adapt.runRetex"], Modifier.fillMaxWidth(), enabled = canRun, onClick = if (mode == "models") goModels else goRetex)
@@ -169,7 +183,12 @@ fun Adapt() {
         Divider()
       }
       Files("images", L["adapt.txd"], txds, addTxds) { f -> txds = txds - f }
+      if (mode == "retex") Row(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Button(L["adapt.addFolder"], Modifier.weight(1f), "soft", "folder", small = true, onClick = addTxdDir)
+        if (txds.isNotEmpty()) Button(L["adapt.clear"], kind = "ghost", small = true) { txds = emptyList() }
+      }
     }
+    if (analyzing) Loading()
 
     val m = models
     if (mode == "models" && m != null) Card(vertical = 6.dp) {
@@ -182,12 +201,13 @@ fun Adapt() {
 
     val rt = retex
     if (mode == "retex" && rt != null) Card(vertical = 6.dp) {
-      Lines(L["adapt.retexFound"], rt.filter { it.dbs.isNotEmpty() }.map { "${it.name} → ${it.dbs.joinToString(", ")}" }, c.ok)
-      Lines(L["adapt.retexNone"], retexMissing.map { it.name }, c.warn)
-      if (retexMissing.isNotEmpty()) {
+      T(L.t("adapt.retexPlan", rt.writes, rt.split, rt.aliases), Modifier.padding(horizontal = 16.dp, vertical = 8.dp), size = 13.5f)
+      Lines(L["adapt.retexNone"], rt.missing, c.warn)
+      if (rt.missing.isNotEmpty() || addMissing) {
         Toggle(L["adapt.addMissing"], addMissing) { addMissing = it }
         if (addMissing && dbs.isNotEmpty()) dbPicker()
       }
+      Toggle(L["adapt.skipSame"], skipSame, L["adapt.skipSameHint"]) { skipSame = it }
     }
 
     if (mode == "models") Card(vertical = 6.dp) {

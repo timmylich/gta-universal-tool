@@ -15,16 +15,18 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import java.util.Locale
 
-enum class Lang(val code: String) { Ru("ru"), En("en") }
+enum class Lang(val code: String) { Ru("ru"), En("en"), Es("es"), Id("id") }
 
 /** Languages whose speakers most likely prefer Russian over English among the ones we ship. */
 private val RU_LIKE = setOf("ru", "uk", "be", "kk", "ky", "uz", "tg", "hy", "az", "ka")
 
-/** [setting]: "system" | "ru" | "en" (the saved settings value). */
-fun resolveLang(setting: String): Lang = when (setting) {
-  "ru" -> Lang.Ru
-  "en" -> Lang.En
-  else -> if (Locale.getDefault().language in RU_LIKE) Lang.Ru else Lang.En
+/** [setting]: "system" or a language code (the saved settings value). */
+fun resolveLang(setting: String): Lang = Lang.entries.firstOrNull { it.code == setting } ?: when (Locale.getDefault().language) {
+  in RU_LIKE -> Lang.Ru
+  "es" -> Lang.Es
+  // Android reports Indonesian as "in" on older versions; Malay readers understand it too.
+  "id", "in", "ms" -> Lang.Id
+  else -> Lang.En
 }
 
 class Dict(val lang: Lang, private val root: JsonObject) {
@@ -38,6 +40,8 @@ class Dict(val lang: Lang, private val root: JsonObject) {
   operator fun get(path: String): String = (node(path) as? JsonPrimitive)?.contentOrNull ?: path
 
   fun t(path: String, vararg args: Any?): String = fill(get(path), args)
+
+  fun list(path: String): List<String> = (node(path) as? JsonArray)?.map { (it as JsonPrimitive).content } ?: emptyList()
 
   /** Plural form of [path] for [count]; {0} is the count. */
   fun n(path: String, count: Int): String {
@@ -54,7 +58,7 @@ class Dict(val lang: Lang, private val root: JsonObject) {
     private fun fill(template: String, args: Array<out Any?>) = PLACEHOLDER.replace(template) { args.getOrNull(it.groupValues[1].toInt()).toString() }
 
     fun pluralIndex(lang: Lang, n: Int): Int {
-      if (lang == Lang.En) return if (n == 1) 0 else 1
+      if (lang != Lang.Ru) return if (n == 1) 0 else 1
       val a = Math.abs(n) % 100
       val b = a % 10
       return when {

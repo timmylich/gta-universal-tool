@@ -4,6 +4,8 @@ package io.github.timmylich.gtatool
 const val REPO_URL = "https://github.com/timmylich/gta-universal-tool"
 const val ISSUES_URL = "https://github.com/timmylich/gta-universal-tool/issues"
 const val TELEGRAM_URL = "https://t.me/timmylich_portfolio"
+const val SFRP_URL = "https://sf-rp.com"
+const val MONITORING_URL = "https://t.me/samp_monitoring_bot"
 
 /** Tribute (cards, crypto, SBP): inside Telegram or in the browser. */
 const val TRIBUTE_TELEGRAM_URL = "https://t.me/tribute/app?startapp=dRVs"

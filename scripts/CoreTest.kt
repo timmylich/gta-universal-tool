@@ -109,6 +109,30 @@ fun synthetic(out: File) {
   check(Rw.dffTextures(c2.dff) == setOf(c2.renamed["body"], c2.renamed["glass2"]))
   check(r.textures.all { it.name.startsWith("mod_") && it.name.length == 10 })
   println("synthetic adaptation: ok")
+
+  // Retexture: per-TXD copies ("<name>_<txd>") and aliases are kept apart, identical pictures share one copy.
+  val rd = File(out, "ret").apply { deleteRecursively(); mkdirs() }
+  File(rd, "ret.txt").writeText("cat=0 name=Default\n")
+  File(rd, "ret.dxt.toc").writeBytes(ByteArray(4)); File(rd, "ret.dxt.dat").writeBytes(ByteArray(0)); File(rd, "ret.dxt.tmb").writeBytes(ByteArray(0))
+  var rdb = TexDb(rd, "ret")
+  rdb.put("dirt_a", gradient(64, 64), TexDb.PutOptions(TexDb.Format.DXT1, attrs = mapOf("detailtile" to "60")))
+  rdb.alias("dirt_b", "dirt_a"); rdb.alias("dirt", "dirt_a")
+  rdb.put("rock", gradient(32, 32), TexDb.PutOptions(TexDb.Format.DXT1))
+  val items = listOf(Retex.Item("a", "dirt", 1), Retex.Item("b", "DIRT", 1), Retex.Item("c", "dirt", 2), Retex.Item("x", "rock", 3), Retex.Item("y", "newtex", 4))
+  val plan = Retex.plan(listOf(rdb), items, null)
+  check(plan.writes.map { it.target }.sorted() == listOf("dirt_a", "dirt_c", "rock")) { "retex writes ${plan.writes.map { it.target }}" }
+  check(plan.aliases.isEmpty() && plan.missing.map { it.name } == listOf("newtex") && plan.split == 1)
+  val white = TexDb.Image(16, 16, IntArray(256) { -1 })
+  for (w in plan.writes) rdb.put(w.target, white, TexDb.PutOptions(TexDb.Format.DXT1, like = w.like))
+  rdb.commit(); rdb = TexDb(rd, "ret")
+  check(rdb.find("dirt_b")!!.offset < 0 && rdb.find("dirt")!!.offset < 0 && Retex.resolve(rdb, "dirt_b")!!.name == "dirt_a")
+  check(rdb.find("dirt_c")!!.offset >= 0 && rdb.find("dirt_c")!!.attrs()["detailtile"] == "60") { "split copy inherits attributes" }
+  // Two TXDs sharing a new picture: one copy plus an alias.
+  val p2 = Retex.plan(listOf(rdb), listOf(Retex.Item("a", "dirt", 1), Retex.Item("d", "dirt", 5), Retex.Item("e", "dirt", 5)), null)
+  check(p2.aliases.size == 1 && p2.aliases[0].name == "dirt_e" && p2.aliases[0].target == "dirt_d")
+  val e0 = rdb.find("dirt_a")!!
+  check(Retex.same(rdb, e0, white.px, 16, 16) && !Retex.same(rdb, e0, IntArray(256) { 0xFF000000.toInt() }, 16, 16)) { "retex same()" }
+  println("synthetic retexture: ok")
 }
 
 fun realFiles(game: File, out: File) {
@@ -129,6 +153,19 @@ fun realFiles(game: File, out: File) {
   db = TexDb(copy, name)
   check(db.find(src.name)!!.name == src.name && db.compact() > 0)
   println("texdb write on a copy of $name: ok")
+
+  // Retexture plan on the real gta3: des_dirt1 lives as des_dirt1_<txd> copies and aliases.
+  val g3 = TexDb(File(texdb, "gta3"), "gta3")
+  val rp = Retex.plan(listOf(g3), listOf(
+    Retex.Item("cs_mountain", "des_dirt1", 1), Retex.Item("cs_town", "des_dirt1", 1),
+    Retex.Item("des_n", "des_dirt1", 2), Retex.Item("des_s", "des_dirt1", 2), Retex.Item("glfhvy", "des_dirt1", 3),
+  ), null)
+  val tg = rp.writes.map { it.target.lowercase() }.sorted()
+  check(tg == listOf("des_dirt1_cs_mountain", "des_dirt1_des_n", "des_dirt1_glfhvy")) { "real retex plan $tg" }
+  check(rp.aliases.single().let { it.name.lowercase() == "des_dirt1_des_s" && it.target.lowercase() == "des_dirt1_des_n" })
+  val stored = g3.find("des_dirt1_cs_mountain")!!
+  check(Retex.same(g3, stored, g3.decode(stored)!!.px, stored.width, stored.height)) { "a texture equals itself" }
+  println("retexture plan on gta3: ok")
 
   val imgSrc = texdb.listFiles()!!.filter { it.name.endsWith(".img") }.minBy { it.length() }
   val img = File(out, "test.img"); imgSrc.copyTo(img, true)

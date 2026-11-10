@@ -13,6 +13,7 @@ import io.github.timmylich.gtatool.core.Adapter
 import io.github.timmylich.gtatool.core.ImgArchive
 import io.github.timmylich.gtatool.core.OswArchive
 import io.github.timmylich.gtatool.core.Pixels
+import io.github.timmylich.gtatool.core.Retex
 import io.github.timmylich.gtatool.core.Rw
 import io.github.timmylich.gtatool.core.TexDb
 import io.github.timmylich.gtatool.data.ImportOptions
@@ -32,7 +33,9 @@ data class ModelInfo(val name: String, val found: List<String>, val missing: Lis
 data class AdaptInfo(val models: List<ModelInfo>, val unused: List<String>, val textures: Int)
 data class ModelResult(val name: String, val renamed: Map<String, String>, val missing: List<String>)
 data class AdaptResult(val models: List<ModelResult>, val textures: Int, val unused: List<String>, val imgAdded: List<String>)
-data class RetexItem(val name: String, val txd: String, val w: Int, val h: Int, val dbs: List<String>)
+/** Retexture analysis: [writes] stored copies to replace, [split] TXD-specific copies to create, [missing] "name (txd)". */
+data class RetexInfo(val writes: Int, val split: Int, val aliases: Int, val missing: List<String>)
+data class RetexResult(val written: Int, val unchanged: Int, val aliases: Int, val missing: List<String>, val failed: List<String>)
 
 /** Thrown when a volume cannot take [need] bytes plus a margin (shown localized by the UI). */
 class NoSpace(val need: Long) : IOException("NO_SPACE:$need")
@@ -117,13 +120,19 @@ object Gta {
   }
 
   /** Returns true when the texture was added, false when replaced. */
-  private fun importOne(d: TexDb, img0: TexDb.Image, name: String, o: ImportOptions, srcCrc: Int): Boolean {
+  /**
+   * [like]: entry a new texture inherits attributes from. maxSize < 0 limits the texture to the size of the one it
+   * replaces (or of [like]), so a retexture never makes the game heavier.
+   */
+  private fun importOne(d: TexDb, img0: TexDb.Image, name: String, o: ImportOptions, srcCrc: Int, like: TexDb.Entry? = null): Boolean {
     val alpha = Pixels.hasAlpha(img0.px)
     val fmt = if (o.format == "auto") (if (alpha) TexDb.Format.DXT5 else TexDb.Format.DXT1) else TexDb.Format.entries.first { it.label == o.format }
     val dxt = fmt == TexDb.Format.DXT1 || fmt == TexDb.Format.DXT5
-    val img = fitSize(img0, o.maxSize, o.pot, dxt)
+    val replaced = Retex.resolve(d, name) ?: like
+    val limit = if (o.maxSize >= 0) o.maxSize else replaced?.let { maxOf(it.width, it.height) } ?: 0
+    val img = fitSize(img0, limit, o.pot, dxt)
     // Replacing keeps the old texture's attributes; only explicit choices override them.
-    val oldAttrs = d.find(name)?.attrs() ?: emptyMap()
+    val oldAttrs = (replaced ?: d.find(name))?.attrs() ?: emptyMap()
     val attrs = LinkedHashMap<String, String>()
     attrs["alphamode"] = when {
       o.alphamode != "auto" -> o.alphamode
@@ -133,7 +142,7 @@ object Gta {
     if (o.camnorm) attrs["camnorm"] = "1"
     if (o.streammode) attrs["streammode"] = "1"
     o.extra.split(' ').filter { it.contains('=') }.forEach { attrs[it.substringBefore('=')] = it.substringAfter('=') }
-    return d.put(name, img, TexDb.PutOptions(fmt, o.mips, o.rle, attrs), srcCrc)
+    return d.put(name, img, TexDb.PutOptions(fmt, o.mips, o.rle, attrs, like = like), srcCrc)
   }
 
   private fun fileCrc(f: File): Int {
@@ -196,8 +205,8 @@ object Gta {
   /** PNG preview path (cached), longest side about [size] px; null for aliases and unknown formats. */
   fun texdbPreview(path: String, name: String, size: Int): String? {
     val d = db(path)
-    val e = synchronized(d) { d.find(name) } ?: return null
-    if (e.offset < 0) return null
+    // An alias shows the texture it points to.
+    val e = synchronized(d) { Retex.resolve(d, name) } ?: return null
     val f = File(cache, "prev/${path.hashCode().toUInt()}_${e.offset}_$size.png")
     if (f.exists()) return f.absolutePath
     var lv = 0; var w = e.width; var h = e.height
@@ -407,38 +416,52 @@ object Gta {
     return AdaptResult(r.models.map { ModelResult(it.name, it.renamed, it.missing) }, r.textures.size, r.unused, imgAdded)
   }
 
-  /** Retexture: for every texture of the TXDs, the databases that already have it. */
-  fun retexAnalyze(gameDir: String, txds: List<String>): List<RetexItem> {
-    val dbs = texdbsOf(gameDir)
-    return txds.flatMap { p ->
-      Rw.readTxd(File(p).readBytes(), decode = false).map { t ->
-        RetexItem(t.name, File(p).name, t.w, t.h, dbs.filter { d -> synchronized(d) { d.find(t.name) != null } }.map { it.name })
-      }
-    }
+  private fun retexPlan(gameDir: String, txds: List<String>, fallback: String?): Retex.Plan {
+    val items = txds.flatMap { p -> val txd = File(p).nameWithoutExtension; Rw.readTxd(File(p).readBytes()).map { Retex.Item(txd, it.name, Retex.hash(it)) } }
+    return Retex.plan(texdbsOf(gameDir), items, fallback?.let { db(it) })
+  }
+
+  /** Retexture: what [retexRun] would do (see core/Retex.kt). */
+  fun retexAnalyze(gameDir: String, txds: List<String>, fallback: String?): RetexInfo {
+    val p = retexPlan(gameDir, txds, fallback)
+    return RetexInfo(p.writes.size, p.split, p.aliases.size, p.missing.map { "${it.name} (${it.txd})" })
   }
 
   /**
-   * Retexture: puts TXD textures into the databases under their original names (models stay untouched).
-   * A texture replaces every texture with the same name in any database; textures no database has are
-   * added to [fallback] or skipped when it is null.
+   * Retexture: puts TXD textures into the databases keeping per-TXD differences (models stay untouched).
+   * With [skipSame], textures that look like what the game already has are not rewritten (whole-map packs
+   * usually ship every texture, most of them unchanged).
    */
-  fun retexRun(gameDir: String, txds: List<String>, o: ImportOptions, fallback: String?): ImportResult {
-    val dbs = texdbsOf(gameDir)
-    val replaced = ArrayList<String>(); val added = ArrayList<String>(); val skipped = ArrayList<String>(); val failed = ArrayList<String>()
+  fun retexRun(gameDir: String, txds: List<String>, o: ImportOptions, fallback: String?, skipSame: Boolean): RetexResult {
+    val plan = retexPlan(gameDir, txds, fallback)
+    val byItem = plan.writes.groupBy { it.item.key }
+    var written = 0; var unchanged = 0
+    val failed = ArrayList<String>()
+    val notCreated = HashSet<String>()
     val touched = LinkedHashSet<TexDb>()
     try {
-      for (p in txds) for (t in Rw.readTxd(File(p).readBytes())) {
-        // The same name may live in several databases (gta3 and gta_int): replace it everywhere.
-        val targets = dbs.filter { d -> synchronized(d) { d.find(t.name) != null } }.ifEmpty { listOfNotNull(fallback?.let { db(it) }) }
-        if (targets.isEmpty()) { skipped += t.name; continue }
-        for (target in targets) synchronized(target) {
-          if (touched.add(target)) backupTexdb(target)
+      for (p in txds) {
+        val txd = File(p).nameWithoutExtension
+        for (t in Rw.readTxd(File(p).readBytes())) for (w in byItem["${txd.lowercase()}/${t.name.lowercase()}"].orEmpty()) synchronized(w.db) {
           try {
-            if (importOne(target, TexDb.Image(t.w, t.h, t.px), t.name, o, 0)) added += "${t.name} → ${target.name}" else replaced += "${t.name} → ${target.name}"
-          } catch (e: Exception) { failed += "${t.name}: ${e.message}" }
+            val cur = Retex.resolve(w.db, w.target) ?: w.like
+            if (skipSame && cur != null && Retex.same(w.db, cur, t.px, t.w, t.h)) {
+              unchanged++
+              if (w.db.find(w.target) == null) notCreated += "${w.db.name}/${w.target.lowercase()}"
+              return@synchronized
+            }
+            if (touched.add(w.db)) backupTexdb(w.db)
+            importOne(w.db, TexDb.Image(t.w, t.h, t.px), w.target, o, 0, w.like)
+            written++
+          } catch (e: Exception) { failed += "${t.name} ($txd): ${e.message}" }
         }
       }
+      // An alias to a copy that was not created would break the texture; without it the name keeps resolving as before.
+      for (a in plan.aliases) if ("${a.db.name}/${a.target.lowercase()}" !in notCreated) synchronized(a.db) {
+        if (touched.add(a.db)) backupTexdb(a.db)
+        a.db.alias(a.name, a.target)
+      }
     } finally { for (d in touched) synchronized(d) { d.commit() } }
-    return ImportResult(added, replaced, skipped, failed)
+    return RetexResult(written, unchanged, plan.aliases.size, plan.missing.map { "${it.name} (${it.txd})" }, failed)
   }
 }

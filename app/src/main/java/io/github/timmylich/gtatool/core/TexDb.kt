@@ -114,6 +114,8 @@ class TexDb(val dir: File, val name: String) {
     val attrs: Map<String, String> = emptyMap(),
     /** Keep attributes of the replaced texture that are not in [attrs] (detailtile, hassibling, ...). */
     val keepOldAttrs: Boolean = true,
+    /** Entry whose attributes a new texture (or a replaced alias) inherits, e.g. the copy it splits from. */
+    val like: Entry? = null,
   )
 
   /**
@@ -133,7 +135,8 @@ class TexDb(val dir: File, val name: String) {
     val attrs = LinkedHashMap<String, String>()
     attrs["width"] = img.w.toString(); attrs["height"] = img.h.toString()
     attrs["img"] = "%08x".format(crc(main)); attrs["png"] = "%08x".format(if (srcCrc != 0) srcCrc else crc(thumb))
-    if (old != null && opt.keepOldAttrs) for ((k, v) in old.attrs()) if (k !in attrs && k !in opt.attrs && k != "affiliate" && k != "format") attrs[k] = v
+    val src = if (old != null && old.offset >= 0) old else opt.like ?: old
+    if (src != null && opt.keepOldAttrs) for ((k, v) in src.attrs()) if (k !in attrs && k !in opt.attrs && k != "affiliate" && k != "format") attrs[k] = v
     for ((k, v) in opt.attrs) if (v.isNotEmpty() && v != "0") attrs[k] = v
     val e = old ?: Entry(texName, "", -1, null).also { entries += it; byName[texName.lowercase()] = it }
     e.line = "\"${e.name}\"" + attrs.entries.joinToString("") { " ${it.key}=${it.value}" }
@@ -141,6 +144,15 @@ class TexDb(val dir: File, val name: String) {
     e.flags = (opt.format.code shl 16) or id; e.width = img.w; e.height = img.h; e.mips = opt.mips
     dirty = true
     return old == null
+  }
+
+  /** Makes [name] an alias of [target] (no data of its own), adding the line when it does not exist. */
+  fun alias(name: String, target: String) {
+    require(name.isNotEmpty() && name.length <= 64 && !name.contains('"')) { "bad texture name: $name" }
+    val e = find(name) ?: Entry(name, "", -1, null).also { entries += it; byName[name.lowercase()] = it }
+    e.line = "\"${e.name}\" \"affiliate=$target\""
+    e.offset = -1; e.thumb = null; e.width = 0; e.height = 0; e.flags = 0; e.mips = false
+    dirty = true
   }
 
   /** Changes txt attributes only (no pixel data). Empty or "0" removes a key. */

@@ -29,6 +29,15 @@ to `count` copies of `unit`. The marker is a byte value no unit starts with. Dat
 `img=` / `png=` are checksums used by Rockstar's build tools; the game does not appear to check them. The tool
 writes CRC32 values.
 
+### Aliases and per-TXD copies
+
+A line `"A" "affiliate=B"` has no data: the game uses texture `B` for `A` (chains are possible).
+The PC → mobile conversion merged all TXDs into one database. A texture name used by several TXDs with
+different pictures is stored once per TXD as `<name>_<txd>` (e.g. `des_dirt1_cs_mountain`), and TXDs with the
+same picture are aliases to one stored copy. The game looks up `<name>_<txd>` first, then `<name>`. A retexture
+must therefore write to `<name>_<txd>` when it exists (see `core/Retex.kt`); writing only `<name>` leaves those
+TXDs unchanged. `hassibling=1` does not affect this lookup.
+
 ## IMG archive (VER2)
 
 `"VER2"`, u32 count, then 32-byte entries: u32 offset (2048-byte sectors), u16 size (sectors), u16 0,

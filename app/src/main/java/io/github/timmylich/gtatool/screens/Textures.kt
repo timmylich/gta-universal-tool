@@ -77,7 +77,6 @@ fun Textures() = FileListScreen(L["tex.title"], "database", load = Gta::texdbLis
 @Composable
 private fun Thumb(path: String, e: TexEntry, size: Int) {
   val img by produceState<ImageBitmap?>(null, path, e.name, e.key, size) {
-    if (e.fmt == "alias") return@produceState
     value = withContext(previews) { runCatching { Gta.texdbPreview(path, e.name, size)?.let { BitmapFactory.decodeFile(it)?.asImageBitmap() } }.getOrNull() }
   }
   val px = if (size == 64) 48.dp else 220.dp
@@ -86,7 +85,7 @@ private fun Thumb(path: String, e: TexEntry, size: Int) {
   }
 }
 
-private val ATTR = Regex(""" (\w+)=(\S+)""")
+private val ATTR = Regex("""[ "](\w+)=([^\s"]+)""")
 private fun attrsOf(line: String) = ATTR.findAll(line).associate { it.groupValues[1] to it.groupValues[2] }
 
 private fun info(e: TexEntry, aliasLabel: String) =
@@ -104,10 +103,11 @@ fun TexDbScreen(path: String) {
   val list = remember(data, query) { data?.entries?.let { all -> if (query.isEmpty()) all else all.filter { query in it.name.lowercase() } } ?: emptyList() }
 
   val startImport = { fixed: String? ->
+    // The sheet is its own window: close it, or the file browser opens underneath.
+    open = null
     act {
       val files = pickFiles(IMAGE_EXTS, multi = fixed == null) ?: return@act
       if (files.isEmpty()) return@act
-      open = null
       Nav.push(Route.TexImport(path, files.map { it to (fixed ?: baseName(it).substringBeforeLast('.')) }))
     }
   }

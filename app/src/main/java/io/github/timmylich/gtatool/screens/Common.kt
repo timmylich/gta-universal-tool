@@ -108,8 +108,8 @@ fun ImportOptionsForm(o: ImportOptions, set: (ImportOptions) -> Unit) {
   Labeled(L["tex.format"], L["tex.formatHint"]) {
     Segmented(o.format, FORMATS.map { it to if (it == "auto") L["tex.auto"] else it }) { set(o.copy(format = it)) }
   }
-  Labeled(L["tex.maxSize"]) {
-    Segmented(o.maxSize, listOf(0, 2048, 1024, 512, 256, 128).map { it to if (it == 0) L["tex.original"] else "$it" }) { set(o.copy(maxSize = it)) }
+  Labeled(L["tex.maxSize"], L["tex.maxSizeHint"]) {
+    Segmented(o.maxSize, listOf(0, -1, 2048, 1024, 512, 256, 128).map { it to when (it) { 0 -> L["tex.original"]; -1 -> L["tex.asReplaced"]; else -> "$it" } }) { set(o.copy(maxSize = it)) }
   }
   Toggle(L["tex.pot"], o.pot, L["tex.potHint"]) { set(o.copy(pot = it)) }
   Toggle(L["tex.mips"], o.mips, L["tex.mipsHint"]) { set(o.copy(mips = it)) }

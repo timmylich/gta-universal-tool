@@ -51,6 +51,7 @@ sealed interface Route {
   data object Adapt : Route
   data object Settings : Route
   data object Support : Route
+  data object Guide : Route
 }
 
 class NavEntry(val route: Route, start: Float) {

@@ -45,6 +45,9 @@ class AppTest {
     assertEquals("11 текстур", ru.n("tex.textures", 11))
     assertEquals("21 текстура", ru.n("tex.textures", 21))
     assertEquals("2 files", dict(Lang.En).n("common.files", 2))
+    assertEquals("2 archivos", dict(Lang.Es).n("common.files", 2))
+    assertEquals("2 file", dict(Lang.Id).n("common.files", 2))
+    for (l in Lang.entries) assertEquals(0, dict(l).list("guide.items").size % 2)
     assertEquals("Added: 2\nReplaced: 0", dict(Lang.En).result(Triple("added", 2, true), Triple("replaced", 0, true), Triple("errors", 0, false)))
     assertEquals("Saved 3 to /x", dict(Lang.En).t("common.exportedTo", 3, "/x"))
   }
