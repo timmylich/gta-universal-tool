@@ -1,0 +1,1 @@
+Aplikasi native (Kotlin + Compose): 1,4 MB, bukan ~38 MB. Retekstur seluruh peta dengan memperhitungkan tekstur dari TXD berbeda, melewati yang tidak diubah dan menambahkan seluruh folder .txd. Batas ukuran «Seperti yang diganti». Panduan di dalam aplikasi; bahasa Spanyol dan Indonesia.

@@ -1,0 +1,1 @@
+App nativa (Kotlin + Compose): 1,4 MB en lugar de ~38 MB. Retexturas de todo el mapa teniendo en cuenta las texturas de distintos TXD, omitiendo las no modificadas y añadiendo una carpeta entera de .txd. Límite de tamaño «Como la reemplazada». Guía dentro de la app; español e indonesio.

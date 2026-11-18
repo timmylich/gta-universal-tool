@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1
+
+- Update check: at start the app asks GitHub for the latest release; if it is newer, a dialog offers to open
+  the release page or to remind again in 3 days. Only for installs from an APK file: store installs are
+  updated by the store. Needs the internet permission (nothing is sent, see docs/PRIVACY.md).
+- "Check for updates" in Settings (APK installs only).
+- Backups screen (Settings → Backups): restore the original of a changed file, or delete its copy. A texdb's four
+  files and an audio pack's .osw + .idx are restored together.
+- Audio: leaving a pack with unapplied replacements asks first; added tracks can be removed before applying.
+- IMG: "replaced" message after replacing an entry with a file.
+- New screenshots.
+
 ## 0.2.0
 
 - The app is now native (Kotlin + Jetpack Compose) instead of React Native: about 1.3 MB instead of ~38 MB,

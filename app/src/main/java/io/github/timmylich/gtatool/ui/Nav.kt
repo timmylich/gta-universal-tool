@@ -52,6 +52,7 @@ sealed interface Route {
   data object Settings : Route
   data object Support : Route
   data object Guide : Route
+  data object Backups : Route
 }
 
 class NavEntry(val route: Route, start: Float) {
@@ -101,12 +102,13 @@ fun Frame(
   title: String,
   actions: @Composable RowScope.() -> Unit = {},
   bottom: (@Composable () -> Unit)? = null,
+  onBack: () -> Unit = Nav::pop,
   content: @Composable ColumnScope.() -> Unit,
 ) {
   Box(Modifier.fillMaxSize().background(c.bg)) {
     Column(Modifier.fillMaxSize()) {
       Row(Modifier.fillMaxWidth().statusBarsPadding().height(56.dp).padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton("left", L["common.back"]) { Nav.pop() }
+        IconButton("left", L["common.back"], onClick = onBack)
         T(title, Modifier.weight(1f).padding(start = 4.dp), size = 19f, semi = true, maxLines = 1)
         actions()
       }

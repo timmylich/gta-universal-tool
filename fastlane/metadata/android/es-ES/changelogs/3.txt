@@ -1,0 +1,1 @@
+Comprobación de actualizaciones con descarga del APK en un toque (solo instalaciones desde APK; «recordar en 3 días»). Pantalla de copias de seguridad: restaurar los archivos originales del juego. Audio: aviso al salir con cambios sin aplicar; las pistas añadidas se pueden quitar.

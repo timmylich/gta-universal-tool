@@ -40,6 +40,7 @@ import io.github.timmylich.gtatool.lib.daysSinceInstall
 import io.github.timmylich.gtatool.lib.pendingMilestone
 import io.github.timmylich.gtatool.ui.Button
 import io.github.timmylich.gtatool.ui.Card
+import io.github.timmylich.gtatool.ui.Divider
 import io.github.timmylich.gtatool.ui.Icon
 import io.github.timmylich.gtatool.ui.L
 import io.github.timmylich.gtatool.ui.Labeled
@@ -73,6 +74,8 @@ fun SettingsScreen() {
     Card(vertical = 6.dp) {
       Toggle(L["settings.backup"], s.backup, L["settings.backupHint"]) { v -> Store.update { copy(backup = v) } }
       Toggle(L["img.newWarnTitle"], !s.imgWarned) { v -> Store.update { copy(imgWarned = !v) } }
+      Divider()
+      ListRow(L["backups.title"], L["backups.open"], "folder") { Nav.push(Route.Backups) }
     }
     Card {
       ListRow(L["settings.clearCache"], icon = "eraser") {
@@ -86,6 +89,7 @@ fun SettingsScreen() {
         T("${L["settings.version"]} ${BuildConfig.VERSION_NAME} · AGPL-3.0-or-later", dim = true, size = 13f)
       }
     }
+    if (sideloaded(ctx)) Card { ListRow(L["update.check"], icon = "download") { act { checkForUpdate(ctx.applicationContext, manual = true) } } }
     Card { ListRow(L["settings.source"], REPO_URL.removePrefix("https://"), "code") { openUrl(ctx, REPO_URL) } }
   }
 }

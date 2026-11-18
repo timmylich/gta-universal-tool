@@ -6,7 +6,7 @@
 
 **Всё для моддинга мобильной GTA San Andreas на Android**
 
-Кэши текстур (texdb) · архивы IMG · аудио · адаптация модов с ПК, в том числе ретекстур всей карты — прямо на телефоне.
+Кэши текстур (texdb) · архивы IMG · аудио · адаптация модов с ПК — прямо на телефоне.
 
 [![CI](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/timmylich/gta-universal-tool)](https://github.com/timmylich/gta-universal-tool/releases/latest)
@@ -15,8 +15,10 @@
 
 **Русский** · [English](README.en.md) · [Español](README.es.md) · [Bahasa Indonesia](README.id.md)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="200" alt="" />
 
 </div>
 
@@ -77,7 +79,7 @@ IMG — архивы моделей (.dff), коллизий (.col) и аним�
 
 Адаптация → «Модели + текстуры». Добавьте .dff (одноимённые .txd подхватятся сами) и при необходимости другие .txd. Каждая текстура получит уникальное имя «префикс_случайное», .dff будут переписаны, текстуры можно сразу импортировать в gta3, а модели — в архив IMG. Чтобы заменить модель в игре, имя .dff должно совпадать с заменяемым (например, infernus.dff). Копия результата сохраняется в /GTAUniversalTool/adapted.
 
-### Ретекстур, в том числе всей карты
+### Ретекстур
 
 Адаптация → «Ретекстур». Меняются только текстуры, модели остаются прежними.
 - Распакуйте .txd из ПК-мода (например, из gta3.img зимнего мода) в папку на телефоне и нажмите «Добавить папку» — возьмутся все .txd, включая подпапки.
@@ -88,7 +90,7 @@ IMG — архивы моделей (.dff), коллизий (.col) и аним�
 
 ### Если что-то пошло не так
 
-Игра вылетает или текстуры чёрные — верните файлы из /GTAUniversalTool/backup: внутри повторяется путь от корня памяти (например, backup/SFRP64/texdb/gta3/…). Частые причины: слишком большие текстуры, лишние модели в IMG, повреждённые .dff. Ошибки и идеи присылайте через «Поддержать проект → Сообщить об ошибке».
+Игра вылетает или текстуры чёрные — откройте Настройки → Резервные копии и восстановите изменённые файлы (копии лежат в /GTAUniversalTool/backup). Частые причины: слишком большие текстуры, лишние модели в IMG, повреждённые .dff. Ошибки и идеи присылайте через «Поддержать проект → Сообщить об ошибке».
 
 ## Поддерживаемые файлы
 

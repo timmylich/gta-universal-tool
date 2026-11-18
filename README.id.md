@@ -6,7 +6,7 @@
 
 **Alat modding lengkap untuk GTA San Andreas mobile di Android**
 
-Cache tekstur (texdb) · arsip IMG · audio · adaptasi mod PC, termasuk retekstur seluruh peta — langsung di ponsel.
+Cache tekstur (texdb) · arsip IMG · audio · adaptasi mod PC — langsung di ponsel.
 
 [![CI](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/timmylich/gta-universal-tool)](https://github.com/timmylich/gta-universal-tool/releases/latest)
@@ -15,8 +15,10 @@ Cache tekstur (texdb) · arsip IMG · audio · adaptasi mod PC, termasuk retekst
 
 [Русский](README.md) · [English](README.en.md) · [Español](README.es.md) · **Bahasa Indonesia**
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="200" alt="" />
 
 </div>
 
@@ -77,7 +79,7 @@ Paket .osw di folder audio adalah kumpulan mp3. Game memutar trek berdasarkan no
 
 Adaptasi → "Model + tekstur". Tambahkan file .dff (file .txd bernama sama diambil otomatis) dan .txd lain bila perlu. Setiap tekstur mendapat nama unik "prefiks_acak", file .dff ditulis ulang, tekstur bisa langsung masuk ke gta3 dan model ke arsip IMG. Untuk mengganti model di game, nama .dff harus sama dengan yang diganti (mis. infernus.dff). Salinan hasil disimpan di /GTAUniversalTool/adapted.
 
-### Retekstur, termasuk seluruh peta
+### Retekstur
 
 Adaptasi → "Retekstur". Hanya tekstur yang berubah; model tetap.
 - Ekstrak file .txd dari mod PC (mis. dari gta3.img mod musim dingin) ke folder di ponsel dan ketuk "Tambah folder": semua .txd diambil, termasuk subfolder.
@@ -88,7 +90,7 @@ Adaptasi → "Retekstur". Hanya tekstur yang berubah; model tetap.
 
 ### Jika ada masalah
 
-Game keluar atau tekstur hitam — pulihkan file dari /GTAUniversalTool/backup; di dalamnya jalur dari akar memori diulang (mis. backup/SFRP64/texdb/gta3/…). Penyebab umum: tekstur terlalu besar, model berlebih di IMG, file .dff rusak. Kirim bug dan ide lewat "Dukung proyek → Laporkan bug".
+Game keluar atau tekstur hitam — buka Pengaturan → Cadangan dan pulihkan file yang diubah (salinannya ada di /GTAUniversalTool/backup). Penyebab umum: tekstur terlalu besar, model berlebih di IMG, file .dff rusak. Kirim bug dan ide lewat "Dukung proyek → Laporkan bug".
 
 ## File yang didukung
 

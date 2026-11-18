@@ -1,4 +1,15 @@
 {
+  "update": {
+    "title": "Actualización disponible",
+    "text": "Ya salió la versión {0} (tienes la {1}).",
+    "download": "Descargar APK",
+    "page": "Abrir en GitHub",
+    "later": "Recordar en 3 días",
+    "check": "Buscar actualizaciones",
+    "failed": "No se pudo conectar con GitHub. Comprueba la conexión a internet.",
+    "latest": "No hay actualizaciones",
+    "latestText": "Tienes la última versión ({0})."
+  },
   "common": {
     "ok": "OK",
     "cancel": "Cancelar",
@@ -132,7 +143,8 @@
     "newWarn": "Estos archivos no están en el IMG y se añadirán:\n{0}\n\nLos modelos de más pueden cerrar el juego. Asegúrate de saber lo que haces.",
     "addAnyway": "Añadir",
     "dontWarn": "No volver a avisar",
-    "removeAsk": "¿Quitar {0} del archivo?"
+    "removeAsk": "¿Quitar {0} del archivo?",
+    "replaced": "{0} reemplazado."
   },
   "audio": {
     "title": "Audio",
@@ -149,7 +161,10 @@
     "apply": "Aplicar cambios ({0})",
     "addTrack": "Añadir pistas",
     "applied": "Paquete reconstruido",
-    "mp3Only": "Se necesita un archivo .mp3"
+    "mp3Only": "Se necesita un archivo .mp3",
+    "leaveTitle": "Cambios sin aplicar",
+    "leaveText": "Reemplazos y pistas nuevas: {0}. Se perderán si sales.",
+    "leave": "Salir sin guardar"
   },
   "adapt": {
     "title": "Adaptación de mods",
@@ -188,7 +203,7 @@
     "light": "Claro",
     "dark": "Oscuro",
     "backup": "Copias de seguridad",
-    "backupHint": "Antes del primer cambio el archivo se copia a /sdcard/GTAUniversalTool/backup (una vez, el original). Para restaurarlo, cópialo de vuelta.",
+    "backupHint": "Antes del primer cambio el archivo se copia a /sdcard/GTAUniversalTool/backup (una vez, el original). Puedes restaurarlo en «Copias de seguridad» más abajo.",
     "clearCache": "Borrar la caché de vistas previas",
     "cleared": "Caché borrada",
     "about": "Acerca de",
@@ -252,7 +267,18 @@
       "Retexturizado, también de todo el mapa",
       "Adaptación → \"Retexturizado\". Solo cambian las texturas; los modelos quedan igual.\n• Extrae los .txd de un mod de PC (p. ej. del gta3.img de un mod de invierno) a una carpeta del teléfono y pulsa \"Añadir carpeta\": se toman todos los .txd, subcarpetas incluidas.\n• En PC, distintos .txd pueden tener texturas con el mismo nombre pero imagen diferente. La caché móvil las guarda como \"nombre_txd\" (des_dirt1_cs_mountain), y las iguales como enlaces (alias) a una sola copia. La app coloca cada textura donde el juego la busca para ese TXD: las imágenes iguales se escriben una vez, las distintas como copias aparte.\n• \"Omitir sin cambios\" no toca las texturas que en el mod son iguales que en el juego: es más rápido y la caché no crece.\n• \"Tamaño máx. → Como la reemplazada\" evita que el mapa sea más pesado.\n• Deja libres 1–2 GB. Después del retexturizado pulsa \"Reconstruir .dat\" en la base gta3.",
       "Si algo sale mal",
-      "El juego se cierra o las texturas salen negras: restaura los archivos desde /GTAUniversalTool/backup; dentro se repite la ruta desde la raíz de la memoria (p. ej. backup/SFRP64/texdb/gta3/…). Causas habituales: texturas demasiado grandes, modelos de más en un IMG, .dff dañados. Envía errores e ideas en \"Apoyar el proyecto → Informar de un error\"."
+      "El juego se cierra o las texturas salen negras: abre Ajustes → Copias de seguridad y restaura los archivos modificados (las copias están en /GTAUniversalTool/backup). Causas habituales: texturas demasiado grandes, modelos de más en un IMG, .dff dañados. Envía errores e ideas en \"Apoyar el proyecto → Informar de un error\"."
     ]
+  },
+  "backups": {
+    "title": "Copias de seguridad",
+    "open": "Restaurar los archivos originales del juego",
+    "hint": "Originales copiados antes del primer cambio. Al restaurar, la copia se escribe sobre el archivo del juego y la copia se conserva. Cierra el juego antes de restaurar.",
+    "none": "Aún no hay copias de seguridad",
+    "restore": "Restaurar",
+    "restoreAsk": "¿Restaurar el original {0}? Se perderán todos los cambios hechos después de la copia.",
+    "restored": "Original restaurado. Reinicia el juego.",
+    "delete": "Eliminar copia",
+    "deleteAsk": "¿Eliminar la copia de {0}? Después no se podrá restaurar su original."
   }
 }

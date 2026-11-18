@@ -1,1 +1,1 @@
-Modding tool for mobile GTA SA: textures (texdb), IMG, audio, PC mod adaptation
+TXD Tool and IMG Tool for mobile GTA SA and SA-MP: textures, models, retextures

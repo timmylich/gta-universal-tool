@@ -1,4 +1,15 @@
 {
+  "update": {
+    "title": "Update available",
+    "text": "Version {0} is out (you have {1}).",
+    "download": "Download APK",
+    "page": "Open on GitHub",
+    "later": "Remind in 3 days",
+    "check": "Check for updates",
+    "failed": "Could not reach GitHub. Check your internet connection.",
+    "latest": "No updates",
+    "latestText": "You have the latest version ({0})."
+  },
   "common": {
     "ok": "OK",
     "cancel": "Cancel",
@@ -132,7 +143,8 @@
     "newWarn": "These files are not in the archive and will be added:\n{0}\n\nExtra models in the archive may crash the game. Make sure you know what you are doing.",
     "addAnyway": "Add",
     "dontWarn": "Do not warn again",
-    "removeAsk": "Remove {0} from the archive?"
+    "removeAsk": "Remove {0} from the archive?",
+    "replaced": "{0} replaced."
   },
   "audio": {
     "title": "Audio",
@@ -149,7 +161,10 @@
     "apply": "Apply changes ({0})",
     "addTrack": "Append tracks",
     "applied": "Pack rebuilt",
-    "mp3Only": "An .mp3 file is required"
+    "mp3Only": "An .mp3 file is required",
+    "leaveTitle": "Changes not applied",
+    "leaveText": "Replacements and new tracks: {0}. They will be lost if you leave.",
+    "leave": "Leave without saving"
   },
   "adapt": {
     "title": "Mod adaptation",
@@ -188,7 +203,7 @@
     "light": "Light",
     "dark": "Dark",
     "backup": "Backups",
-    "backupHint": "Before the first change a file is copied to /sdcard/GTAUniversalTool/backup (once, the original). To restore, copy it back.",
+    "backupHint": "Before the first change a file is copied to /sdcard/GTAUniversalTool/backup (once, the original). Restore it in \"Backups\" below.",
     "clearCache": "Clear preview cache",
     "cleared": "Cache cleared",
     "about": "About",
@@ -252,7 +267,18 @@
       "Retexture, including the whole map",
       "Adaptation → \"Retexture\". Only textures change; models stay the same.\n• Unpack the .txd files of a PC mod (e.g. from the gta3.img of a winter mod) into a folder on the phone and tap \"Add folder\": every .txd is taken, subfolders included.\n• On PC different .txd files may have textures with the same name but different pictures. The mobile cache stores those as \"name_txd\" (des_dirt1_cs_mountain), and identical ones as links (alias) to one copy. The app puts every texture where the game looks for it for that TXD: identical pictures are written once, different ones as separate copies.\n• \"Skip unchanged\" leaves textures that are the same in the mod as in the game: faster, and the cache does not grow.\n• \"Max size → As replaced\" keeps the map from getting heavier.\n• Keep 1–2 GB free. After a retexture tap \"Rebuild .dat\" in the gta3 database.",
       "If something goes wrong",
-      "The game crashes or textures are black — restore the files from /GTAUniversalTool/backup: inside, the path from the storage root is repeated (e.g. backup/SFRP64/texdb/gta3/…). Common causes: textures that are too big, extra models in an IMG, damaged .dff files. Send bugs and ideas via \"Support the project → Report a bug\"."
+      "The game crashes or textures are black — open Settings → Backups and restore the changed files (the copies are in /GTAUniversalTool/backup). Common causes: textures that are too big, extra models in an IMG, damaged .dff files. Send bugs and ideas via \"Support the project → Report a bug\"."
     ]
+  },
+  "backups": {
+    "title": "Backups",
+    "open": "Restore the original game files",
+    "hint": "Originals copied before the first change. Restoring writes the copy over the game file; the copy stays. Close the game before restoring.",
+    "none": "No backups yet",
+    "restore": "Restore",
+    "restoreAsk": "Restore the original {0}? All changes made to it after the backup will be lost.",
+    "restored": "Original restored. Restart the game.",
+    "delete": "Delete backup",
+    "deleteAsk": "Delete the backup of {0}? Its original cannot be restored afterwards."
   }
 }

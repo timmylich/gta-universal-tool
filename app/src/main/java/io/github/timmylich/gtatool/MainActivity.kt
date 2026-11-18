@@ -24,6 +24,7 @@ import io.github.timmylich.gtatool.i18n.resolveLang
 import io.github.timmylich.gtatool.lib.Gta
 import io.github.timmylich.gtatool.screens.AppScreen
 import io.github.timmylich.gtatool.screens.DonationPrompt
+import io.github.timmylich.gtatool.screens.checkForUpdate
 import io.github.timmylich.gtatool.ui.FilePickerHost
 import io.github.timmylich.gtatool.ui.LocalDict
 import io.github.timmylich.gtatool.ui.LocalPalette
@@ -66,6 +67,7 @@ private fun Root() {
     activity.enableEdgeToEdge(bar, bar)
     activity.window.setBackgroundDrawable(ColorDrawable(pal.bg.toArgb()))
   }
+  LaunchedEffect(Unit) { checkForUpdate(ctx.applicationContext) }
   LaunchedEffect(s.backup) { Gta.backupRoot = if (s.backup) File(Gta.appDir("backup")) else null }
   CompositionLocalProvider(LocalPalette provides pal, LocalDict provides dict) {
     Box(Modifier.fillMaxSize().background(pal.bg)) {

@@ -6,7 +6,7 @@
 
 **All-in-one modding tool for mobile GTA San Andreas on Android**
 
-Texture caches (texdb) · IMG archives · audio · PC mod adaptation, including whole-map retextures — right on the phone.
+Texture caches (texdb) · IMG archives · audio · PC mod adaptation — right on the phone.
 
 [![CI](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/timmylich/gta-universal-tool)](https://github.com/timmylich/gta-universal-tool/releases/latest)
@@ -15,8 +15,10 @@ Texture caches (texdb) · IMG archives · audio · PC mod adaptation, including 
 
 [Русский](README.md) · **English** · [Español](README.es.md) · [Bahasa Indonesia](README.id.md)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="200" alt="" />
 
 </div>
 
@@ -77,7 +79,7 @@ IMG files are archives of models (.dff), collisions (.col) and animations. texdb
 
 Adaptation → "Models + textures". Add .dff files (.txd files with the same names are picked up automatically) and other .txd files if needed. Every texture gets a unique "prefix_random" name, the .dff files are rewritten, and the textures can go straight into gta3 and the models into an IMG archive. To replace a model in the game, the .dff name must match the replaced one (e.g. infernus.dff). A copy of the result is saved to /GTAUniversalTool/adapted.
 
-### Retexture, including the whole map
+### Retexture
 
 Adaptation → "Retexture". Only textures change; models stay the same.
 - Unpack the .txd files of a PC mod (e.g. from the gta3.img of a winter mod) into a folder on the phone and tap "Add folder": every .txd is taken, subfolders included.
@@ -88,7 +90,7 @@ Adaptation → "Retexture". Only textures change; models stay the same.
 
 ### If something goes wrong
 
-The game crashes or textures are black — restore the files from /GTAUniversalTool/backup: inside, the path from the storage root is repeated (e.g. backup/SFRP64/texdb/gta3/…). Common causes: textures that are too big, extra models in an IMG, damaged .dff files. Send bugs and ideas via "Support the project → Report a bug".
+The game crashes or textures are black — open Settings → Backups and restore the changed files (the copies are in /GTAUniversalTool/backup). Common causes: textures that are too big, extra models in an IMG, damaged .dff files. Send bugs and ideas via "Support the project → Report a bug".
 
 ## Supported files
 

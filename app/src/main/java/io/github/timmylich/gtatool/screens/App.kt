@@ -67,6 +67,7 @@ fun AppScreen(r: Route) = when (r) {
   Route.Settings -> SettingsScreen()
   Route.Support -> Support()
   Route.Guide -> Guide()
+  Route.Backups -> Backups()
 }
 
 fun openUrl(ctx: Context, url: String) {

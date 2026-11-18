@@ -40,7 +40,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** [style]: default | cancel | destructive. The cancel button also runs on dismiss. */
+/** [style]: default | soft (secondary) | cancel | destructive. The cancel button also runs on dismiss. */
 data class DialogButton(val text: String, val style: String = "default", val onClick: (() -> Unit)? = null)
 
 private data class DialogData(val title: String, val message: String?, val buttons: List<DialogButton>)
@@ -114,7 +114,7 @@ fun OverlayHost() {
     Column(Modifier.fillMaxWidth().background(c.card, RoundedCornerShape(24.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
       T(d.title, size = 18f, semi = true)
       if (d.message != null) Box(Modifier.heightIn(max = 420.dp).verticalScroll(rememberScrollState())) { T(d.message, dim = true, size = 14.5f) }
-      val kind = { b: DialogButton -> when (b.style) { "cancel" -> "ghost"; "destructive" -> "danger"; else -> "primary" } }
+      val kind = { b: DialogButton -> when (b.style) { "cancel" -> "ghost"; "destructive" -> "danger"; "soft" -> "soft"; else -> "primary" } }
       if (buttons.size <= 2) Row(Modifier.fillMaxWidth().padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         for (b in buttons) Button(b.text, Modifier.weight(1f), kind(b)) { press(b) }
       } else Column(Modifier.fillMaxWidth().padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

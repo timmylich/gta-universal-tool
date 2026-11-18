@@ -1,18 +1,26 @@
-<p>A free, open-source replacement for <b>TXD Tool</b> and <b>IMG Tool</b> for the Android version of GTA San Andreas and SA-MP mobile clients. No ads, no trackers, works offline.</p>
-<p><b>Textures (texdb)</b></p>
+<p><b>TXD Tool and IMG Tool in one app</b> for mobile GTA San Andreas and SA-MP clients. Open a texture cache, swap a picture, jump into the game. No PC, no ads, no sign-up.</p>
+<p><b>🎨 Textures</b></p>
 <ul>
-<li>Browse the texture caches (gta3, gta_int, samp, …) with previews and search</li>
-<li>Import PNG/JPG: add or replace, case-insensitive names</li>
-<li>Formats: DXT1, DXT5, RGBA8888, RGB565, RGBA4444; mipmaps, RLE packing, size limit, power-of-two</li>
-<li>Attributes: alphamode, camnorm, streammode and any extra ones</li>
-<li>Export PNG, delete, rebuild the database to free space</li>
+<li>gta3, gta_int, samp and other caches with previews, search and aliases</li>
+<li>Replace or add from PNG/JPG, export to PNG, delete</li>
+<li>DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmaps, RLE</li>
+<li>Size limit, including "As replaced", so the game stays smooth</li>
+<li>alphamode, camnorm, streammode and any custom attributes</li>
+<li>Rebuild the database to free space after many replacements</li>
 </ul>
-<p><b>IMG archives</b></p>
+<p><b>❄️ Whole-map retextures</b></p>
+<p>Winter mod, new roads, HD grass: add the folder with .txd files and the app does the rest. It knows where the game looks for every texture, handles different textures that share a name across TXDs, stores identical pictures once and skips what the mod did not change.</p>
+<p><b>🚗 PC mods</b></p>
+<p>Cars, skins and objects (dff + txd) move to mobile in a couple of taps. Several models at once; every texture gets a unique name, unused ones are dropped.</p>
+<p><b>📦 IMG archives</b>: add, replace, export and delete .dff, .col and other files, rebuild the archive.</p>
+<p><b>🔊 Audio</b>: listen to, export, replace and append tracks in .osw packs.</p>
+<p><b>🛡 Safe</b></p>
 <ul>
-<li>Add or replace .dff, .col and other files; warning before adding new entries</li>
-<li>Export, delete, rebuild (shrinks the archive after many replacements)</li>
+<li>Every game file is backed up before its first change</li>
+<li>No ads, analytics or accounts: the app sends and collects nothing (it only checks GitHub for a new version)</li>
+<li>1.4 MB, open source, free forever</li>
 </ul>
-<p><b>Audio</b>: listen, export, replace and append mp3 tracks in .osw packs.</p>
-<p><b>Mod adaptation</b>: converts PC dff + txd mods for mobile. Several models and texture dictionaries at once; every texture gets a unique name, models are rewritten, unused textures are dropped. <b>Retexture</b> mode replaces textures by name in every database.</p>
-<p>Every game file is backed up before its first change. The app needs "All files access" to edit game files.</p>
+<p>Step-by-step guide inside. Languages: English, Русский, Español, Bahasa Indonesia.</p>
+<p>Made with the support of San Fierro RolePlay (sf-rp.com).</p>
+<p>Requires "All files access": game files live in the phone's shared storage.</p>
 <p>GTA and Grand Theft Auto are trademarks of Take-Two Interactive. This project is not affiliated with Rockstar Games or Take-Two Interactive.</p>

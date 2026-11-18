@@ -6,7 +6,7 @@
 
 **Todo para modificar GTA San Andreas para móvil en Android**
 
-Cachés de texturas (texdb) · archivos IMG · audio · adaptación de mods de PC, incluido el retexturizado de todo el mapa, desde el teléfono.
+Cachés de texturas (texdb) · archivos IMG · audio · adaptación de mods de PC, desde el teléfono.
 
 [![CI](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/timmylich/gta-universal-tool/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/timmylich/gta-universal-tool)](https://github.com/timmylich/gta-universal-tool/releases/latest)
@@ -15,8 +15,10 @@ Cachés de texturas (texdb) · archivos IMG · audio · adaptación de mods de P
 
 [Русский](README.md) · [English](README.en.md) · **Español** · [Bahasa Indonesia](README.id.md)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240" alt="" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="200" alt="" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="200" alt="" />
 
 </div>
 
@@ -77,7 +79,7 @@ Los paquetes .osw de la carpeta audio son conjuntos de mp3. El juego reproduce l
 
 Adaptación → "Modelos + texturas". Añade los .dff (los .txd con el mismo nombre se cogen solos) y otros .txd si hace falta. Cada textura recibe un nombre único "prefijo_aleatorio", los .dff se reescriben y las texturas pueden ir directamente a gta3 y los modelos a un archivo IMG. Para reemplazar un modelo del juego, el nombre del .dff debe coincidir con el reemplazado (p. ej. infernus.dff). Una copia del resultado se guarda en /GTAUniversalTool/adapted.
 
-### Retexturizado, también de todo el mapa
+### Retexturizado
 
 Adaptación → "Retexturizado". Solo cambian las texturas; los modelos quedan igual.
 - Extrae los .txd de un mod de PC (p. ej. del gta3.img de un mod de invierno) a una carpeta del teléfono y pulsa "Añadir carpeta": se toman todos los .txd, subcarpetas incluidas.
@@ -88,7 +90,7 @@ Adaptación → "Retexturizado". Solo cambian las texturas; los modelos quedan i
 
 ### Si algo sale mal
 
-El juego se cierra o las texturas salen negras: restaura los archivos desde /GTAUniversalTool/backup; dentro se repite la ruta desde la raíz de la memoria (p. ej. backup/SFRP64/texdb/gta3/…). Causas habituales: texturas demasiado grandes, modelos de más en un IMG, .dff dañados. Envía errores e ideas en "Apoyar el proyecto → Informar de un error".
+El juego se cierra o las texturas salen negras: abre Ajustes → Copias de seguridad y restaura los archivos modificados (las copias están en /GTAUniversalTool/backup). Causas habituales: texturas demasiado grandes, modelos de más en un IMG, .dff dañados. Envía errores e ideas en "Apoyar el proyecto → Informar de un error".
 
 ## Archivos compatibles
 

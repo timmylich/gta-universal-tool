@@ -1,0 +1,1 @@
+Update check with a one-tap APK download (APK installs only; "remind in 3 days"). Backups screen: restore original game files. Audio: warning before leaving with unapplied changes, added tracks can be removed.

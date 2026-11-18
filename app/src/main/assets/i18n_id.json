@@ -1,4 +1,15 @@
 {
+  "update": {
+    "title": "Pembaruan tersedia",
+    "text": "Versi {0} sudah rilis (versi Anda {1}).",
+    "download": "Unduh APK",
+    "page": "Buka di GitHub",
+    "later": "Ingatkan 3 hari lagi",
+    "check": "Periksa pembaruan",
+    "failed": "Tidak bisa terhubung ke GitHub. Periksa koneksi internet.",
+    "latest": "Tidak ada pembaruan",
+    "latestText": "Anda memakai versi terbaru ({0})."
+  },
   "common": {
     "ok": "OK",
     "cancel": "Batal",
@@ -129,7 +140,8 @@
     "newWarn": "File ini tidak ada di arsip dan akan ditambahkan:\n{0}\n\nModel berlebih di arsip bisa membuat game keluar. Pastikan Anda tahu apa yang dilakukan.",
     "addAnyway": "Tambah",
     "dontWarn": "Jangan ingatkan lagi",
-    "removeAsk": "Hapus {0} dari arsip?"
+    "removeAsk": "Hapus {0} dari arsip?",
+    "replaced": "{0} diganti."
   },
   "audio": {
     "title": "Audio",
@@ -145,7 +157,10 @@
     "apply": "Terapkan perubahan ({0})",
     "addTrack": "Tambah trek",
     "applied": "Paket dibangun ulang",
-    "mp3Only": "Diperlukan file .mp3"
+    "mp3Only": "Diperlukan file .mp3",
+    "leaveTitle": "Perubahan belum diterapkan",
+    "leaveText": "Penggantian dan trek baru: {0}. Akan hilang jika Anda keluar.",
+    "leave": "Keluar tanpa menyimpan"
   },
   "adapt": {
     "title": "Adaptasi mod",
@@ -184,7 +199,7 @@
     "light": "Terang",
     "dark": "Gelap",
     "backup": "Cadangan",
-    "backupHint": "Sebelum perubahan pertama file disalin ke /sdcard/GTAUniversalTool/backup (sekali, yang asli). Untuk memulihkan, salin kembali.",
+    "backupHint": "Sebelum perubahan pertama file disalin ke /sdcard/GTAUniversalTool/backup (sekali, file asli). Pulihkan di \"Cadangan\" di bawah.",
     "clearCache": "Hapus cache pratinjau",
     "cleared": "Cache dihapus",
     "about": "Tentang",
@@ -248,7 +263,18 @@
       "Retekstur, termasuk seluruh peta",
       "Adaptasi → \"Retekstur\". Hanya tekstur yang berubah; model tetap.\n• Ekstrak file .txd dari mod PC (mis. dari gta3.img mod musim dingin) ke folder di ponsel dan ketuk \"Tambah folder\": semua .txd diambil, termasuk subfolder.\n• Di PC, file .txd yang berbeda bisa punya tekstur bernama sama tetapi gambarnya berbeda. Cache mobile menyimpannya sebagai \"nama_txd\" (des_dirt1_cs_mountain), dan yang identik sebagai tautan (alias) ke satu salinan. Aplikasi menaruh setiap tekstur di tempat game mencarinya untuk TXD tersebut: gambar yang sama ditulis sekali, yang berbeda sebagai salinan terpisah.\n• \"Lewati yang tidak berubah\" tidak menyentuh tekstur yang di mod sama dengan di game: lebih cepat dan cache tidak membengkak.\n• \"Ukuran maks. → Seperti yang diganti\" menjaga peta agar tidak lebih berat.\n• Sisakan ruang kosong 1–2 GB. Setelah retekstur ketuk \"Bangun ulang .dat\" di database gta3.",
       "Jika ada masalah",
-      "Game keluar atau tekstur hitam — pulihkan file dari /GTAUniversalTool/backup; di dalamnya jalur dari akar memori diulang (mis. backup/SFRP64/texdb/gta3/…). Penyebab umum: tekstur terlalu besar, model berlebih di IMG, file .dff rusak. Kirim bug dan ide lewat \"Dukung proyek → Laporkan bug\"."
+      "Game keluar atau tekstur hitam — buka Pengaturan → Cadangan dan pulihkan file yang diubah (salinannya ada di /GTAUniversalTool/backup). Penyebab umum: tekstur terlalu besar, model berlebih di IMG, file .dff rusak. Kirim bug dan ide lewat \"Dukung proyek → Laporkan bug\"."
     ]
+  },
+  "backups": {
+    "title": "Cadangan",
+    "open": "Pulihkan file asli game",
+    "hint": "File asli yang disalin sebelum perubahan pertama. Pemulihan menulis salinan di atas file game; salinannya tetap ada. Tutup game sebelum memulihkan.",
+    "none": "Belum ada cadangan",
+    "restore": "Pulihkan",
+    "restoreAsk": "Pulihkan file asli {0}? Semua perubahan setelah pencadangan akan hilang.",
+    "restored": "File asli dipulihkan. Mulai ulang game.",
+    "delete": "Hapus cadangan",
+    "deleteAsk": "Hapus cadangan {0}? File aslinya tidak bisa dipulihkan lagi."
   }
 }

@@ -2,6 +2,7 @@
 package io.github.timmylich.gtatool.screens
 
 import android.media.MediaPlayer
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import io.github.timmylich.gtatool.ui.Route
 import io.github.timmylich.gtatool.ui.T
 import io.github.timmylich.gtatool.ui.act
 import io.github.timmylich.gtatool.ui.alert
+import io.github.timmylich.gtatool.ui.ask
 import io.github.timmylich.gtatool.ui.c
 import io.github.timmylich.gtatool.ui.currentDict
 import io.github.timmylich.gtatool.ui.pickFiles
@@ -83,7 +85,16 @@ fun Osw(path: String) {
   }
 
   val pending = repl.size + added.size
-  Frame(baseName(path).removeSuffix(".osw").removeSuffix(".OSW"), actions = {
+  // Unapplied replacements live only on this screen: ask before dropping them.
+  val leave = {
+    if (pending == 0) Nav.pop()
+    else act {
+      val d = currentDict
+      if (ask(d["audio.leaveTitle"], d.t("audio.leaveText", pending), d["audio.leave"], true)) { repl = emptyMap(); added = emptyList(); Nav.pop() }
+    }
+  }
+  BackHandler(pending > 0) { leave() }
+  Frame(baseName(path).removeSuffix(".osw").removeSuffix(".OSW"), onBack = leave, actions = {
     IconButton("plus", L["audio.addTrack"]) { act { pickFiles(listOf(".mp3"), multi = true)?.let { added = added + it } } }
   }, bottom = if (pending > 0) ({ Button(L.t("audio.apply", pending), Modifier.fillMaxWidth(), onClick = apply) }) else null) {
     if (tracks == null) return@Frame Loading()
@@ -111,7 +122,12 @@ fun Osw(path: String) {
         }
       }
       if (added.isNotEmpty()) item {
-        Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 10.dp)) { for (a in added) T("+ ${baseName(a)}", color = c.ok, size = 13f) }
+        Column(Modifier.padding(start = 16.dp, end = 8.dp, top = 6.dp)) {
+          for ((k, a) in added.withIndex()) Row(verticalAlignment = Alignment.CenterVertically) {
+            T("+ ${baseName(a)}", Modifier.weight(1f), color = c.ok, size = 13f, maxLines = 1)
+            IconButton("close", L["common.delete"]) { added = added.filterIndexed { j, _ -> j != k } }
+          }
+        }
       }
       item { Box(Modifier.navigationBarsPadding().height(if (pending > 0) 90.dp else 16.dp)) }
     }

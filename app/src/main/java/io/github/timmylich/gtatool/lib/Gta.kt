@@ -35,7 +35,15 @@ data class ModelResult(val name: String, val renamed: Map<String, String>, val m
 data class AdaptResult(val models: List<ModelResult>, val textures: Int, val unused: List<String>, val imgAdded: List<String>)
 /** Retexture analysis: [writes] stored copies to replace, [split] TXD-specific copies to create, [missing] "name (txd)". */
 data class RetexInfo(val writes: Int, val split: Int, val aliases: Int, val missing: List<String>)
+/** One backed-up game file, or a whole texdb (its 4 files) / audio pack (.osw + .idx) restored together. */
+data class BackupItem(val name: String, val original: String, val files: List<String>, val size: Long, val time: Long)
 data class RetexResult(val written: Int, val unchanged: Int, val aliases: Int, val missing: List<String>, val failed: List<String>)
+
+/** Files of one texdb (dir/name.txt, dir/name.dxt.*), or an .osw with its .idx, are restored together. */
+internal fun backupUnit(f: File): String {
+  val p = f.parentFile!!
+  return if (f.name == "${p.name}.txt" || f.name.startsWith("${p.name}.dxt.")) p.path else f.path.removeSuffix(".idx")
+}
 
 /** Thrown when a volume cannot take [need] bytes plus a margin (shown localized by the UI). */
 class NoSpace(val need: Long) : IOException("NO_SPACE:$need")
@@ -184,6 +192,38 @@ object Gta {
   }
 
   fun clearCache() { cache.deleteRecursively() }
+
+  // ---- backups ----
+
+  private val backupDir get() = File(appDir("backup"))
+
+  fun backupList(): List<BackupItem> {
+    val root = backupDir
+    return root.walkTopDown().filter { it.isFile && !it.name.endsWith(".part") }.groupBy(::backupUnit).map { (key, files) ->
+      val rel = key.removePrefix(root.path).trimStart('/')
+      BackupItem(rel.substringAfterLast('/'), "$storageRoot/$rel", files.map { it.path }, files.sumOf { it.length() }, files.maxOf { it.lastModified() })
+    }.sortedBy { it.original.lowercase() }
+  }
+
+  /** Copies the backed-up files over the game files. The backup stays: it is still the original. */
+  fun backupRestore(item: BackupItem) {
+    val root = backupDir.path
+    for (b in item.files) {
+      val dest = File(storageRoot + b.removePrefix(root))
+      dest.parentFile?.mkdirs()
+      ensureSpace(dest.parentFile!!, File(b).length())
+      val tmp = File(dest.path + ".part")
+      File(b).copyTo(tmp, true)
+      if (!tmp.renameTo(dest)) { tmp.delete(); throw IOException("Cannot write ${dest.path}") }
+    }
+    // Opened databases, archives and previews describe the replaced files.
+    synchronized(lock) { texdbs.clear(); imgs.clear() }
+    clearCache()
+  }
+
+  fun backupDelete(item: BackupItem) {
+    for (b in item.files) File(b).delete()
+  }
 
   // ---- texdb ----
 

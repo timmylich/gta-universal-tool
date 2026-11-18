@@ -50,6 +50,8 @@ data class Settings(
   val donationShown: List<Int> = emptyList(),
   /** Hide the "new entries may crash the game" warning for IMG additions. */
   val imgWarned: Boolean = false,
+  /** No update prompt before this time (ms): "Later" in the update dialog. */
+  val updateSnoozedUntil: Long = 0,
 )
 
 object Store {

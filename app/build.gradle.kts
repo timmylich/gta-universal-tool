@@ -16,8 +16,8 @@ android {
     minSdk = 26
     targetSdk = 36
     // Continues the React Native app's numbering, so it installs as an update.
-    versionCode = 2
-    versionName = "0.2.0"
+    versionCode = 3
+    versionName = "0.2.1"
   }
 
   // Optional local signing: keystore.properties (gitignored) with storeFile, storePassword,

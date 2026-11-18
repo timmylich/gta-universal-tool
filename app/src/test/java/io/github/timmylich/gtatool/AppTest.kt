@@ -5,7 +5,9 @@ import io.github.timmylich.gtatool.data.Store
 import io.github.timmylich.gtatool.i18n.Dict
 import io.github.timmylich.gtatool.i18n.Lang
 import io.github.timmylich.gtatool.i18n.bytes
+import io.github.timmylich.gtatool.lib.backupUnit
 import io.github.timmylich.gtatool.lib.pendingMilestone
+import io.github.timmylich.gtatool.screens.isNewer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
@@ -68,5 +70,24 @@ class AppTest {
     assertNull(pendingMilestone(9, listOf(7)))
     assertEquals(60, pendingMilestone(61, emptyList()))
     assertEquals("1.5 KB", bytes(1536))
+  }
+
+  @Test fun updateVersionCompare() {
+    assertTrue(isNewer("v0.2.1", "0.2.0"))
+    assertTrue(isNewer("v0.10.0", "0.9.9"))
+    assertTrue(isNewer("v1.0", "0.9.9"))
+    assertTrue(!isNewer("v0.2.0", "0.2.0"))
+    assertTrue(!isNewer("v0.2", "0.2.0"))
+    assertTrue(!isNewer("v0.1.9", "0.2.0"))
+    assertTrue(!isNewer("garbage", "0.2.0"))
+  }
+
+  @Test fun backupGroups() {
+    val u = { p: String -> backupUnit(File(p)).replace('\\', '/') }
+    assertEquals("/b/texdb/gta3", u("/b/texdb/gta3/gta3.txt"))
+    assertEquals("/b/texdb/gta3", u("/b/texdb/gta3/gta3.dxt.dat"))
+    assertEquals("/b/texdb/gta3.img", u("/b/texdb/gta3.img"))
+    assertEquals("/b/audio/sfx/a.osw", u("/b/audio/sfx/a.osw.idx"))
+    assertEquals("/b/audio/sfx/a.osw", u("/b/audio/sfx/a.osw"))
   }
 }

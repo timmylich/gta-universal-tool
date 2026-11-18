@@ -1,0 +1,26 @@
+<p><b>TXD Tool e IMG Tool en una sola app</b> para GTA San Andreas móvil y clientes SA-MP. Abre una caché de texturas, cambia una imagen y entra al juego. Sin PC, sin anuncios, sin registro.</p>
+<p><b>🎨 Texturas</b></p>
+<ul>
+<li>Cachés gta3, gta_int, samp y otras con vista previa, búsqueda y alias</li>
+<li>Reemplaza o añade desde PNG/JPG, exporta a PNG, elimina</li>
+<li>DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmaps, RLE</li>
+<li>Límite de tamaño, incluido «como la reemplazada», para que el juego vaya fluido</li>
+<li>Atributos alphamode, camnorm, streammode y cualquier otro</li>
+<li>Reconstruye la base para liberar espacio tras muchos reemplazos</li>
+</ul>
+<p><b>❄️ Retexturas de todo el mapa</b></p>
+<p>Mod de invierno, carreteras nuevas, césped HD: añade la carpeta con los .txd y la app hace el resto. Sabe dónde busca el juego cada textura, distingue texturas distintas con el mismo nombre en varios TXD, guarda una sola vez las imágenes iguales y omite lo que el mod no cambió.</p>
+<p><b>🚗 Mods de PC</b></p>
+<p>Coches, skins y objetos (dff + txd) pasan a móvil en un par de toques. Varios modelos a la vez; cada textura recibe un nombre único y las que sobran se descartan.</p>
+<p><b>📦 Archivos IMG</b>: añade, reemplaza, exporta y elimina .dff, .col y otros archivos; reconstruye el archivo.</p>
+<p><b>🔊 Audio</b>: escucha, exporta, reemplaza y añade pistas en los paquetes .osw.</p>
+<p><b>🛡 Seguro</b></p>
+<ul>
+<li>Cada archivo del juego se copia antes de su primer cambio</li>
+<li>Sin anuncios, analítica ni cuentas: la app no envía ni recopila nada (solo consulta en GitHub si hay versión nueva)</li>
+<li>1,4 MB, código abierto, gratis para siempre</li>
+</ul>
+<p>Guía paso a paso incluida. Idiomas: Español, English, Русский, Bahasa Indonesia.</p>
+<p>Creado con el apoyo de San Fierro RolePlay (sf-rp.com).</p>
+<p>Requiere «Acceso a todos los archivos»: los archivos del juego están en el almacenamiento compartido.</p>
+<p>GTA y Grand Theft Auto son marcas de Take-Two Interactive. Este proyecto no está afiliado a Rockstar Games ni a Take-Two Interactive.</p>

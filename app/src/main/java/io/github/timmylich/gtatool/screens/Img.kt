@@ -102,8 +102,9 @@ fun ImgView(path: String) {
       DialogButton(d["img.replaceFile"]) {
         act {
           val f = pickFiles()?.firstOrNull() ?: return@act
-          work { Gta.imgReplace(path, name, f) }
+          work { Gta.imgReplace(path, name, f) } ?: return@act
           Changes.bump()
+          alert(currentDict["common.done"], currentDict.t("img.replaced", name))
         }
       },
       DialogButton(d["common.delete"], "destructive") { remove(listOf(name)) },
