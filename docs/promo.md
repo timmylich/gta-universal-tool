@@ -70,18 +70,18 @@ It also replaces TXD Tool and IMG Tool on the phone: cache previews, PNG import,
 **About → Description** (max 350 characters):
 
 ```text
-TXD Tool + IMG Tool for mobile GTA San Andreas and SA-MP on Android: texture caches (texdb), IMG archives, .osw audio, PC mod adaptation and whole-map retextures. Native, offline, no ads.
+TXD + IMG Tool for mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · TXD + IMG Tool для мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы.
 ```
 
 **Topics** (GitHub allows up to 20):
 
 ```text
-gta gta-sa gta-san-andreas samp sa-mp gta-modding modding android kotlin jetpack-compose txd txd-tool img-tool texdb renderware dff dxt texture-editor retexture offline
+gta gta-sa gta-san-andreas samp sa-mp gta-modding modding android kotlin jetpack-compose txd txd-tool img-tool texdb renderware dff dxt texture-editor retexture osw
 ```
 
 With GitHub CLI:
 
 ```powershell
-gh repo edit timmylich/gta-universal-tool --description "TXD Tool + IMG Tool for mobile GTA San Andreas and SA-MP on Android: texture caches (texdb), IMG archives, .osw audio, PC mod adaptation and whole-map retextures. Native, offline, no ads." --homepage "https://github.com/timmylich/gta-universal-tool/releases/latest"
-gh repo edit timmylich/gta-universal-tool --add-topic gta,gta-sa,gta-san-andreas,samp,sa-mp,gta-modding,modding,android,kotlin,jetpack-compose,txd,txd-tool,img-tool,texdb,renderware,dff,dxt,texture-editor,retexture,offline
+gh repo edit timmylich/gta-universal-tool --description "TXD + IMG Tool for mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · TXD + IMG Tool для мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы." --homepage "https://github.com/timmylich/gta-universal-tool/releases/latest"
+gh repo edit timmylich/gta-universal-tool --add-topic gta,gta-sa,gta-san-andreas,samp,sa-mp,gta-modding,modding,android,kotlin,jetpack-compose,txd,txd-tool,img-tool,texdb,renderware,dff,dxt,texture-editor,retexture,osw
 ```

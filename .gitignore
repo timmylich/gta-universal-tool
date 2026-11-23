@@ -31,3 +31,6 @@ keystore.properties
 .DS_Store
 Thumbs.db
 *.log
+
+# GitHub Pages images (copied from fastlane by the Pages workflow)
+/site/img/
