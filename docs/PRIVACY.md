@@ -2,7 +2,9 @@
 
 GTA Universal Tool collects no data. There are no ads, analytics, accounts or third-party SDKs.
 
-The only network request: when the app was installed from an APK file (not from a store), it asks
+The app from app stores and F-Droid has no internet permission at all.
+
+The only network request, in the APK from GitHub Releases: when it was installed from an APK file, it asks
 GitHub for the latest release number at start (`api.github.com/repos/timmylich/gta-universal-tool/releases/latest`).
 Nothing about you or your files is sent; GitHub sees the request like any visit to a web page.
 
@@ -17,7 +19,9 @@ Questions: https://github.com/timmylich/gta-universal-tool/issues
 
 GTA Universal Tool не собирает никаких данных. Нет рекламы, аналитики, аккаунтов и сторонних SDK.
 
-Единственный сетевой запрос: если приложение установлено из APK-файла (не из магазина), при запуске оно
+У версии из магазинов приложений и F-Droid вообще нет разрешения на доступ в интернет.
+
+Единственный сетевой запрос — в APK со страницы GitHub Releases: если приложение установлено из APK-файла, при запуске оно
 спрашивает у GitHub номер последней версии (`api.github.com/repos/timmylich/gta-universal-tool/releases/latest`).
 О вас и ваших файлах ничего не отправляется; GitHub видит запрос как обычное открытие веб-страницы.
 

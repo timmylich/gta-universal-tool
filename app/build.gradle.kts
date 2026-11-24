@@ -16,8 +16,8 @@ android {
     minSdk = 26
     targetSdk = 36
     // Continues the React Native app's numbering, so it installs as an update.
-    versionCode = 3
-    versionName = "0.2.1"
+    versionCode = 4
+    versionName = "0.2.2"
   }
 
   // Optional local signing: keystore.properties (gitignored) with storeFile, storePassword,
@@ -28,6 +28,14 @@ android {
     storePassword = keystore.getProperty("storePassword")
     keyAlias = keystore.getProperty("keyAlias")
     keyPassword = keystore.getProperty("keyPassword")
+  }
+
+  // github: the APK from GitHub Releases, checks there for new versions.
+  // store: for app stores and F-Droid, which update the app themselves: no update check, no internet permission.
+  flavorDimensions += "dist"
+  productFlavors {
+    create("github") { dimension = "dist"; buildConfigField("boolean", "UPDATE_CHECK", "true") }
+    create("store") { dimension = "dist"; buildConfigField("boolean", "UPDATE_CHECK", "false") }
   }
 
   buildTypes {

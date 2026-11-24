@@ -4,17 +4,18 @@ Everything a store asks for is already in the repository:
 
 | What | Where |
 | --- | --- |
-| APK (signed) | GitHub → Releases (built by `.github/workflows/release.yml`) |
+| APK (signed) | GitHub → Releases: **`GTA-Universal-Tool-vX-store.apk`** for stores (no update check, no internet permission); the plain `GTA-Universal-Tool-vX.apk` is for direct downloads |
 | Icon 512×512 | `fastlane/metadata/android/*/images/icon.png` |
 | Feature graphic 1024×500 | `fastlane/metadata/android/*/images/featureGraphic.png` |
 | Title / short / full description | `fastlane/metadata/android/{ru-RU,en-US,es-ES,id}/` |
 | What's new | `fastlane/metadata/android/*/changelogs/<versionCode>.txt` |
 | Privacy policy URL | `https://github.com/timmylich/gta-universal-tool/blob/main/docs/PRIVACY.md` |
-| Screenshots | `fastlane/metadata/android/*/images/phoneScreenshots/` (2 now, from 0.1.0; stores want 4–8) |
+| Screenshots 1080×1920 | `fastlane/metadata/android/*/images/phoneScreenshots/1-4.png`, per language (made by `python scripts/store-art.py` from `art/screens`) |
+| Wide promo picture 4320×1920 | `art/promo/<lang>.png` (the four screenshots side by side) |
 | Posts for Telegram / VK, GitHub description and topics | [promo.md](promo.md) |
 
 Typical form answers: category **Tools** (or "Development"); contains ads **no**; in-app purchases
-**no**; data collected **none**, internet is used only to check GitHub for a new version (sideloaded installs only, nothing is sent); target audience **12+/16+** (the
+**no**; data collected **none**, no internet permission (store APK); target audience **12+/16+** (the
 game itself is rated 16–18+, some stores ask for the same); content rating: no violence in the
 app itself, no user-generated sharing.
 
@@ -26,8 +27,8 @@ Trademark: the description already says the project is not affiliated with Rocks
 Take-Two. If a store rejects "GTA" in the title, use "Universal Tool for SA mods" there and keep
 the package name.
 
-Always upload the **same signed APK** from GitHub Releases, so the stores can update each other's
-installs.
+Always upload the **`-store` APK** from GitHub Releases. Both APKs have the same package and signing key, so
+stores and GitHub installs update each other.
 
 ## Store by store
 

@@ -1,11 +1,11 @@
 name: Pages
 
-# Publishes site/ to GitHub Pages; images come from the store metadata, so they stay in one place.
+# Publishes site/ to GitHub Pages; icon from the store metadata, raw screenshots from art/screens.
 # One-time setup: Settings -> Pages -> Source: GitHub Actions.
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'fastlane/metadata/android/ru-RU/images/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'art/screens/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p site/img
           cp fastlane/metadata/android/en-US/images/icon.png fastlane/metadata/android/en-US/images/featureGraphic.png site/img/
-          cp fastlane/metadata/android/ru-RU/images/phoneScreenshots/*.png site/img/
+          cp art/screens/*.png site/img/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -13,7 +13,7 @@ live.
 
 Есть приложение, которое это учитывает — GTA Universal Tool. Кидаешь ему папку с .txd из мода — оно само раскладывает каждую текстуру туда, где её ищет игра, одинаковые картинки не дублирует, неизменённые пропускает. Перед изменениями делает резервную копию.
 
-Заодно это полноценная замена TXD Tool и IMG Tool: превью кэшей gta3/gta_int/samp, замена текстур из PNG, архивы IMG, звук .osw, перенос машин и скинов с ПК.
+А ещё в нём всё для моддинга с телефона: превью кэшей gta3/gta_int/samp, замена текстур из PNG, архивы IMG, звук .osw, перенос машин и скинов с ПК.
 
 Весит 1,4 МБ, без рекламы и аналитики, ничего не собирает. Бесплатно, код открыт.
 
@@ -38,7 +38,7 @@ GTA Universal Tool открывает кэши текстур прямо на т
 ```text
 Для тех, кто делает сборки и моды под мобильный SA-MP.
 
-Раньше для ретекстура или новой машины нужны были TXD Tool, IMG Tool и компьютер для конвертации. Теперь всё это умеет одно приложение — GTA Universal Tool:
+Раньше для ретекстура или новой машины нужен был компьютер и несколько программ. Теперь всё это умеет одно приложение — GTA Universal Tool:
 
 • кэши текстур с превью, импорт PNG/JPG, DXT1/DXT5/RGBA, мип-карты
 • ретекстур целой карты с учётом алиасов и копий текстур по TXD
@@ -58,7 +58,7 @@ Ever tried putting a winter retexture on mobile GTA SA and half the map stayed g
 
 GTA Universal Tool handles that: give it the mod's folder of .txd files and it writes each texture where the game actually looks for it, stores identical pictures once and skips the ones the mod didn't change.
 
-It also replaces TXD Tool and IMG Tool on the phone: cache previews, PNG import, IMG archives, .osw audio, PC car and skin ports. Backups before every first change.
+It also covers everyday modding on the phone: cache previews, PNG import, IMG archives, .osw audio, PC car and skin ports. Backups before every first change.
 
 1.4 MB, no ads, no analytics, collects nothing. Free and open source.
 
@@ -70,18 +70,18 @@ It also replaces TXD Tool and IMG Tool on the phone: cache previews, PNG import,
 **About → Description** (max 350 characters):
 
 ```text
-TXD + IMG Tool for mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · TXD + IMG Tool для мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы.
+Mod mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · Моддинг мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы.
 ```
 
 **Topics** (GitHub allows up to 20):
 
 ```text
-gta gta-sa gta-san-andreas samp sa-mp gta-modding modding android kotlin jetpack-compose txd txd-tool img-tool texdb renderware dff dxt texture-editor retexture osw
+gta gta-sa gta-san-andreas samp sa-mp gta-modding modding android kotlin jetpack-compose txd gta-mods android-app texdb renderware dff dxt texture-editor retexture osw
 ```
 
 With GitHub CLI:
 
 ```powershell
-gh repo edit timmylich/gta-universal-tool --description "TXD + IMG Tool for mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · TXD + IMG Tool для мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы." --homepage "https://github.com/timmylich/gta-universal-tool/releases/latest"
-gh repo edit timmylich/gta-universal-tool --add-topic gta,gta-sa,gta-san-andreas,samp,sa-mp,gta-modding,modding,android,kotlin,jetpack-compose,txd,txd-tool,img-tool,texdb,renderware,dff,dxt,texture-editor,retexture,osw
+gh repo edit timmylich/gta-universal-tool --description "Mod mobile GTA SA / SA-MP on Android: textures, IMG, audio, PC mods. Free, no ads. · Моддинг мобильной GTA SA / SA-MP на Android: текстуры, IMG, звук, моды с ПК. Бесплатно, без рекламы." --homepage "https://github.com/timmylich/gta-universal-tool/releases/latest"
+gh repo edit timmylich/gta-universal-tool --add-topic gta,gta-sa,gta-san-andreas,samp,sa-mp,gta-modding,modding,android,kotlin,jetpack-compose,txd,gta-mods,android-app,texdb,renderware,dff,dxt,texture-editor,retexture,osw
 ```

@@ -39,8 +39,9 @@ internal fun isNewer(tag: String, current: String): Boolean {
   return false
 }
 
-/** Installed from an APK file (package installer, adb), not by a store app. */
+/** Update checks apply: the GitHub build, installed from an APK file (package installer, adb), not by a store app. */
 fun sideloaded(ctx: Context): Boolean {
+  if (!BuildConfig.UPDATE_CHECK) return false
   val pm = ctx.packageManager
   val src = runCatching {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) pm.getInstallSourceInfo(ctx.packageName).installingPackageName
@@ -60,7 +61,7 @@ private fun latestRelease(): Release? = runCatching {
   try {
     val o = Json.parseToJsonElement(c.inputStream.bufferedReader().use { it.readText() }).jsonObject
     val apk = o["assets"]?.jsonArray?.firstNotNullOfOrNull { a ->
-      a.jsonObject["browser_download_url"]?.jsonPrimitive?.content?.takeIf { it.endsWith(".apk") }
+      a.jsonObject["browser_download_url"]?.jsonPrimitive?.content?.takeIf { it.endsWith(".apk") && !it.endsWith("-store.apk") }
     }
     Release(o["tag_name"]!!.jsonPrimitive.content, o["html_url"]!!.jsonPrimitive.content, apk)
   } finally {

@@ -1,1 +1,1 @@
-TXD Tool and IMG Tool for mobile GTA SA and SA-MP: textures, models, retextures
+Mod mobile GTA SA and SA-MP on your phone: textures, models, audio

@@ -1,26 +1,32 @@
-<p><b>TXD Tool dan IMG Tool dalam satu aplikasi</b> untuk GTA San Andreas mobile dan klien SA-MP. Buka cache tekstur, ganti gambar, langsung main. Tanpa PC, tanpa iklan, tanpa daftar akun.</p>
-<p><b>🎨 Tekstur</b></p>
-<ul>
-<li>Cache gta3, gta_int, samp dan lainnya dengan pratinjau, pencarian dan alias</li>
-<li>Ganti atau tambah dari PNG/JPG, ekspor ke PNG, hapus</li>
-<li>DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmap, RLE</li>
-<li>Batas ukuran, termasuk «seperti yang diganti», agar game tetap lancar</li>
-<li>Atribut alphamode, camnorm, streammode dan atribut lain</li>
-<li>Bangun ulang database untuk mengosongkan ruang setelah banyak penggantian</li>
-</ul>
-<p><b>❄️ Retekstur seluruh peta</b></p>
-<p>Mod salju, jalan baru, rumput HD: tambahkan folder berisi .txd dan aplikasi mengerjakan sisanya. Aplikasi tahu di mana game mencari setiap tekstur, membedakan tekstur berbeda dengan nama sama dari beberapa TXD, menyimpan gambar yang sama satu kali dan melewati yang tidak diubah mod.</p>
-<p><b>🚗 Mod PC</b></p>
-<p>Mobil, skin dan objek (dff + txd) pindah ke mobile dalam beberapa ketukan. Beberapa model sekaligus; setiap tekstur mendapat nama unik, yang tidak terpakai dibuang.</p>
-<p><b>📦 Arsip IMG</b>: tambah, ganti, ekspor dan hapus .dff, .col dan file lain; bangun ulang arsip.</p>
-<p><b>🔊 Audio</b>: dengar, ekspor, ganti dan tambah trek di paket .osw.</p>
-<p><b>🛡 Aman</b></p>
-<ul>
-<li>Setiap file game dicadangkan sebelum perubahan pertama</li>
-<li>Tanpa iklan, analitik, atau akun: aplikasi tidak mengirim dan tidak mengumpulkan apa pun (hanya memeriksa versi baru di GitHub)</li>
-<li>1,4 MB, sumber terbuka, gratis selamanya</li>
-</ul>
-<p>Panduan langkah demi langkah di dalam aplikasi. Bahasa: Bahasa Indonesia, English, Русский, Español.</p>
-<p>Dibuat dengan dukungan San Fierro RolePlay (sf-rp.com).</p>
-<p>Memerlukan «Akses semua file»: file game ada di penyimpanan bersama ponsel.</p>
-<p>GTA dan Grand Theft Auto adalah merek dagang Take-Two Interactive. Proyek ini tidak berafiliasi dengan Rockstar Games atau Take-Two Interactive.</p>
+Modding GTA San Andreas mobile dan klien SA-MP langsung di ponsel. Buka cache tekstur, ganti gambar, masuk ke game. Tanpa PC, tanpa iklan, tanpa daftar.
+
+🎨 TEKSTUR
+• Cache gta3, gta_int, samp dan lainnya — dengan pratinjau, pencarian, dan alias
+• Ganti dan tambah dari PNG/JPG, ekspor ke PNG, hapus
+• DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmap, RLE
+• Batas ukuran, termasuk «seperti yang diganti», agar game tetap lancar
+• Atribut alphamode, camnorm, streammode, dan atribut sendiri
+• Bangun ulang database untuk mengosongkan ruang setelah banyak penggantian
+
+📦 ARSIP IMG
+• Tambah, ganti, ekspor, dan hapus .dff, .col, dan file lain
+• Bangun ulang arsip
+
+🔊 AUDIO
+• Dengarkan, ekspor, ganti, dan tambah trek di paket .osw
+
+🚗 MOD PC
+• Mobil, skin, dan objek (dff + txd) dalam beberapa ketukan, beberapa model sekaligus; setiap tekstur mendapat nama unik
+• Retekstur: tekstur dari .txd mod ditaruh di tempat game mencarinya; bisa menambah satu folder sekaligus
+
+🛡 AMAN
+• Setiap file game dicadangkan sebelum perubahan pertama; pulihkan file asli dengan satu ketukan di Pengaturan
+• Tanpa iklan, analitik, atau akun; aplikasi tidak punya akses internet
+• 1,4 MB, sumber terbuka, gratis selamanya
+
+Ada panduan langkah demi langkah. Bahasa: Bahasa Indonesia, English, русский, Español.
+Dibuat dengan dukungan San Fierro RolePlay (sf-rp.com).
+
+Aplikasi memerlukan «Akses ke semua file»: file game ada di penyimpanan bersama ponsel.
+
+GTA dan Grand Theft Auto adalah merek dagang Take-Two Interactive. Proyek ini tidak berafiliasi dengan Rockstar Games atau Take-Two Interactive.

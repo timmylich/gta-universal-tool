@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.2
+
+- Two APKs per release: the GitHub one checks for updates; `-store` (for app stores and F-Droid) has no update
+  check and no internet permission. Same package and signing key, so they update each other.
+- The update dialog downloads the GitHub APK, never the store one.
+- New store screenshots and wide promo pictures in four languages; refreshed store descriptions.
+
 ## 0.2.1
 
 - Update check: at start the app asks GitHub for the latest release; if it is newer, a dialog offers to open

@@ -1,5 +1,5 @@
 # Runs Gradle with the toolchain and caches on drive D: (GT_TOOLS, default D:\Dev\utils: Android\SDK, Android\jdk21, gradle-home).
-# Usage:  powershell -File scripts/gradle.ps1 testDebugUnitTest assembleRelease
+# Usage:  powershell -File scripts/gradle.ps1 testGithubDebugUnitTest assembleRelease
 #         powershell -File scripts/gradle.ps1 -Install    (release build, then adb install over the current app)
 param([switch]$Install, [Parameter(ValueFromRemainingArguments)][string[]]$Tasks)
 $ErrorActionPreference = 'Stop'
@@ -19,13 +19,13 @@ $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
 "sdk.dir=$(($env:ANDROID_HOME -replace '\\', '/') -replace ':', '\:')" | Set-Content -NoNewline local.properties
 
-if ($Install -and -not $Tasks) { $Tasks = @('assembleRelease') }
+if ($Install -and -not $Tasks) { $Tasks = @('assembleGithubRelease') }
 .\gradlew.bat @Tasks --no-daemon
 if ($LASTEXITCODE -ne 0) { throw "Gradle failed ($LASTEXITCODE)" }
 
 if ($Install) {
-  $dir = 'app\build\outputs\apk\release'
-  $apk = if (Test-Path "$dir\app-release.apk") { "$dir\app-release.apk" } else { throw 'No signed APK: keystore.properties is missing' }
+  $dir = 'app\build\outputs\apk\github\release'
+  $apk = if (Test-Path "$dir\app-github-release.apk") { "$dir\app-github-release.apk" } else { throw 'No signed APK: keystore.properties is missing' }
   Write-Host "APK: $apk ($([math]::Round((Get-Item $apk).Length / 1MB, 1)) MB)"
   & "$env:ANDROID_HOME\platform-tools\adb.exe" install -r $apk
   if ($LASTEXITCODE -ne 0) { throw "adb install failed ($LASTEXITCODE)" }

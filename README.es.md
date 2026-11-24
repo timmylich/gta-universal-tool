@@ -22,7 +22,7 @@ Cachés de texturas (texdb) · archivos IMG · audio · adaptación de mods de P
 
 </div>
 
-Sustituto libre y de código abierto de **TXD Tool** e **IMG Tool** para GTA San Andreas en Android y los clientes móviles de SA-MP. Sin anuncios ni rastreadores, funciona sin conexión.
+App gratuita y de código abierto para modificar GTA San Andreas en Android y los clientes móviles de SA-MP. Sin anuncios ni rastreadores, funciona sin conexión.
 
 Creado con el apoyo de **[San Fierro RolePlay](https://sf-rp.com)**.
 
@@ -30,7 +30,7 @@ Creado con el apoyo de **[San Fierro RolePlay](https://sf-rp.com)**.
 
 ## Instalación
 
-1. Descarga el APK desde [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) e instálalo.
+1. Descarga `GTA-Universal-Tool-vX.apk` desde [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) e instálalo. El archivo `-store.apk` es la versión para tiendas, sin comprobación de actualizaciones.
 2. Abre la app y permite el "Acceso a todos los archivos" (Android 11+).
 3. Elige la carpeta del juego y sigue las instrucciones de abajo. Las mismas instrucciones están en la app: pantalla principal → "Instrucciones".
 

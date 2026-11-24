@@ -22,7 +22,7 @@ Cache tekstur (texdb) · arsip IMG · audio · adaptasi mod PC — langsung di p
 
 </div>
 
-Pengganti **TXD Tool** dan **IMG Tool** yang gratis dan sumber terbuka untuk GTA San Andreas Android dan klien mobile SA-MP. Tanpa iklan dan pelacak, bekerja offline.
+Aplikasi gratis dan sumber terbuka untuk modding GTA San Andreas Android dan klien mobile SA-MP. Tanpa iklan dan pelacak, bekerja offline.
 
 Dibuat dengan dukungan **[San Fierro RolePlay](https://sf-rp.com)**.
 
@@ -30,7 +30,7 @@ Dibuat dengan dukungan **[San Fierro RolePlay](https://sf-rp.com)**.
 
 ## Instalasi
 
-1. Unduh APK dari [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) lalu pasang.
+1. Unduh `GTA-Universal-Tool-vX.apk` dari [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) lalu pasang. File `-store.apk` adalah versi untuk toko aplikasi, tanpa pemeriksaan pembaruan.
 2. Buka aplikasi dan izinkan "Akses ke semua file" (Android 11+).
 3. Pilih folder game, lalu ikuti petunjuk di bawah. Petunjuk yang sama ada di aplikasi: layar utama → "Petunjuk".
 

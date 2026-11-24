@@ -22,11 +22,11 @@ jobs:
           distribution: temurin
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew testDebugUnitTest lintDebug assembleRelease --no-daemon
+      - run: ./gradlew testGithubDebugUnitTest lintGithubDebug assembleRelease --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: gta-universal-tool-${{ github.sha }}
-          path: app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/*/release/*.apk
 
   core:
     name: Format self-test

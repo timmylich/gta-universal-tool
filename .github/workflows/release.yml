@@ -1,6 +1,8 @@
 name: Release
 
-# Push a tag like v0.2.0 to build, sign and publish a GitHub release.
+# Push a tag like v0.2.0 to build, sign and publish a GitHub release with two APKs:
+#   GTA-Universal-Tool-vX.apk        GitHub build (checks for updates here)
+#   GTA-Universal-Tool-vX-store.apk  for app stores (no update check, no internet permission)
 # Signing secrets: KEYSTORE_BASE64 (base64 of the .jks), KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
 on:
   push:
@@ -24,7 +26,7 @@ jobs:
         run: |
           APP=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts)
           if [ "$APP" != "${GITHUB_REF_NAME#v}" ]; then echo "versionName $APP != tag $GITHUB_REF_NAME"; exit 1; fi
-      - run: ./gradlew testDebugUnitTest assembleRelease --no-daemon
+      - run: ./gradlew testGithubDebugUnitTest assembleGithubRelease assembleStoreRelease --no-daemon
       - name: Sign
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -33,16 +35,26 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           if [ -z "$KEYSTORE_BASE64" ]; then echo "::error::Signing secrets are not set"; exit 1; fi
-          out="GTA-Universal-Tool-${GITHUB_REF_NAME}.apk"
           bt=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           echo "$KEYSTORE_BASE64" | base64 -d > release.jks
-          "$bt/zipalign" -f -p 4 app/build/outputs/apk/release/app-release-unsigned.apk aligned.apk
-          "$bt/apksigner" sign --ks release.jks --ks-pass env:KEYSTORE_PASSWORD --ks-key-alias "$KEY_ALIAS" --key-pass env:KEY_PASSWORD --out "$out" aligned.apk
+          for flavor in github store; do
+            suffix=""
+            if [ "$flavor" = store ]; then suffix="-store"; fi
+            out="GTA-Universal-Tool-${GITHUB_REF_NAME}${suffix}.apk"
+            "$bt/zipalign" -f -p 4 "app/build/outputs/apk/$flavor/release/app-$flavor-release-unsigned.apk" aligned.apk
+            "$bt/apksigner" sign --ks release.jks --ks-pass env:KEYSTORE_PASSWORD --ks-key-alias "$KEY_ALIAS" --key-pass env:KEY_PASSWORD --out "$out" aligned.apk
+            sha256sum "$out" > "$out.sha256"
+          done
           rm release.jks aligned.apk
-          sha256sum "$out" > "$out.sha256"
+      # The GitHub APK is uploaded first: 0.2.1 picks the first .apk asset of the release for its update dialog.
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            GTA-Universal-Tool-*.apk
-            GTA-Universal-Tool-*.apk.sha256
+            GTA-Universal-Tool-${{ github.ref_name }}.apk
+            GTA-Universal-Tool-${{ github.ref_name }}.apk.sha256
           generate_release_notes: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            GTA-Universal-Tool-${{ github.ref_name }}-store.apk
+            GTA-Universal-Tool-${{ github.ref_name }}-store.apk.sha256

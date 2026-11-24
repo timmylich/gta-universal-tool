@@ -1,26 +1,32 @@
-<p><b>TXD Tool and IMG Tool in one app</b> for mobile GTA San Andreas and SA-MP clients. Open a texture cache, swap a picture, jump into the game. No PC, no ads, no sign-up.</p>
-<p><b>🎨 Textures</b></p>
-<ul>
-<li>gta3, gta_int, samp and other caches with previews, search and aliases</li>
-<li>Replace or add from PNG/JPG, export to PNG, delete</li>
-<li>DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmaps, RLE</li>
-<li>Size limit, including "As replaced", so the game stays smooth</li>
-<li>alphamode, camnorm, streammode and any custom attributes</li>
-<li>Rebuild the database to free space after many replacements</li>
-</ul>
-<p><b>❄️ Whole-map retextures</b></p>
-<p>Winter mod, new roads, HD grass: add the folder with .txd files and the app does the rest. It knows where the game looks for every texture, handles different textures that share a name across TXDs, stores identical pictures once and skips what the mod did not change.</p>
-<p><b>🚗 PC mods</b></p>
-<p>Cars, skins and objects (dff + txd) move to mobile in a couple of taps. Several models at once; every texture gets a unique name, unused ones are dropped.</p>
-<p><b>📦 IMG archives</b>: add, replace, export and delete .dff, .col and other files, rebuild the archive.</p>
-<p><b>🔊 Audio</b>: listen to, export, replace and append tracks in .osw packs.</p>
-<p><b>🛡 Safe</b></p>
-<ul>
-<li>Every game file is backed up before its first change</li>
-<li>No ads, analytics or accounts: the app sends and collects nothing (it only checks GitHub for a new version)</li>
-<li>1.4 MB, open source, free forever</li>
-</ul>
-<p>Step-by-step guide inside. Languages: English, Русский, Español, Bahasa Indonesia.</p>
-<p>Made with the support of San Fierro RolePlay (sf-rp.com).</p>
-<p>Requires "All files access": game files live in the phone's shared storage.</p>
-<p>GTA and Grand Theft Auto are trademarks of Take-Two Interactive. This project is not affiliated with Rockstar Games or Take-Two Interactive.</p>
+Mod mobile GTA San Andreas and SA-MP clients right on your phone. Open a texture cache, replace a picture, start the game. No PC, no ads, no sign-up.
+
+🎨 TEXTURES
+• gta3, gta_int, samp and other caches — with previews, search and aliases
+• Replace and add from PNG/JPG, export to PNG, delete
+• DXT1, DXT5, RGBA8888, RGB565, RGBA4444, mipmaps, RLE
+• Size limit, including "as replaced", so the game stays fast
+• alphamode, camnorm, streammode and any custom attributes
+• Rebuilding a database frees space after many replacements
+
+📦 IMG ARCHIVES
+• Add, replace, export and delete .dff, .col and other files
+• Rebuild the archive
+
+🔊 AUDIO
+• Listen to, export, replace and add tracks in .osw packs
+
+🚗 PC MODS
+• Cars, skins and objects (dff + txd) in a few taps, several models at once; every texture gets a unique name
+• Retextures: textures from a mod's .txd go where the game looks for them; add a whole folder at once
+
+🛡 SAFE
+• Every game file is backed up before its first change; restore the original with one tap in Settings
+• No ads, analytics or accounts; the app has no internet access
+• 1.4 MB, open source, free forever
+
+Step-by-step guide inside. Languages: English, русский, Español, Bahasa Indonesia.
+Made with the support of San Fierro RolePlay (sf-rp.com).
+
+The app needs "All files access": the game files are in the phone's shared storage.
+
+GTA and Grand Theft Auto are trademarks of Take-Two Interactive. This project is not affiliated with Rockstar Games or Take-Two Interactive.
