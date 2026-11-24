@@ -30,7 +30,7 @@
 
 ## Установка
 
-1. Скачайте `GTA-Universal-Tool-vX.apk` со страницы [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) и установите. Файл `-store.apk` — версия для магазинов приложений, без проверки обновлений.
+1. Скачайте `GTA-Universal-Tool-vX-github.apk` со страницы [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) и установите. Файл `-store.apk` — версия для магазинов приложений, без проверки обновлений.
 2. Откройте приложение и разрешите «Доступ ко всем файлам» (Android 11+).
 3. Выберите папку игры — дальше по инструкции ниже. Та же инструкция есть в приложении: главный экран → «Инструкция».
 

@@ -4,7 +4,7 @@ Everything a store asks for is already in the repository:
 
 | What | Where |
 | --- | --- |
-| APK (signed) | GitHub → Releases: **`GTA-Universal-Tool-vX-store.apk`** for stores (no update check, no internet permission); the plain `GTA-Universal-Tool-vX.apk` is for direct downloads |
+| APK (signed) | GitHub → Releases: **`GTA-Universal-Tool-vX-store.apk`** for stores (no update check, no internet permission); `GTA-Universal-Tool-vX-github.apk` is for direct downloads |
 | Icon 512×512 | `fastlane/metadata/android/*/images/icon.png` |
 | Feature graphic 1024×500 | `fastlane/metadata/android/*/images/featureGraphic.png` |
 | Title / short / full description | `fastlane/metadata/android/{ru-RU,en-US,es-ES,id}/` |

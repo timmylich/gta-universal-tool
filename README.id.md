@@ -30,7 +30,7 @@ Dibuat dengan dukungan **[San Fierro RolePlay](https://sf-rp.com)**.
 
 ## Instalasi
 
-1. Unduh `GTA-Universal-Tool-vX.apk` dari [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) lalu pasang. File `-store.apk` adalah versi untuk toko aplikasi, tanpa pemeriksaan pembaruan.
+1. Unduh `GTA-Universal-Tool-vX-github.apk` dari [Releases](https://github.com/timmylich/gta-universal-tool/releases/latest) lalu pasang. File `-store.apk` adalah versi untuk toko aplikasi, tanpa pemeriksaan pembaruan.
 2. Buka aplikasi dan izinkan "Akses ke semua file" (Android 11+).
 3. Pilih folder game, lalu ikuti petunjuk di bawah. Petunjuk yang sama ada di aplikasi: layar utama → "Petunjuk".
 

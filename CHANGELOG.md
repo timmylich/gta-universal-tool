@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+- The GitHub APK is now `GTA-Universal-Tool-vX-github.apk`, so it is listed before the `-store` one and the
+  update dialog of 0.2.1 downloads the right file.
+
 ## 0.2.2
 
 - Two APKs per release: the GitHub one checks for updates; `-store` (for app stores and F-Droid) has no update
