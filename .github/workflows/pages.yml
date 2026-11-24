@@ -1,6 +1,6 @@
 name: Pages
 
-# Publishes site/ to GitHub Pages; icon from the store metadata, raw screenshots from art/screens.
+# Publishes site/ to GitHub Pages; icon from the store metadata, raw screenshots from art/screens/<lang>.
 # One-time setup: Settings -> Pages -> Source: GitHub Actions.
 on:
   push:
@@ -29,7 +29,8 @@ jobs:
         run: |
           mkdir -p site/img
           cp fastlane/metadata/android/en-US/images/icon.png fastlane/metadata/android/en-US/images/featureGraphic.png site/img/
-          cp art/screens/*.png site/img/
+          cp art/screens/ru-RU/*.png site/img/
+          mkdir -p site/img/en && cp art/screens/en-US/*.png site/img/en/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

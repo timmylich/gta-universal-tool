@@ -10,7 +10,7 @@ Everything a store asks for is already in the repository:
 | Title / short / full description | `fastlane/metadata/android/{ru-RU,en-US,es-ES,id}/` |
 | What's new | `fastlane/metadata/android/*/changelogs/<versionCode>.txt` |
 | Privacy policy URL | `https://github.com/timmylich/gta-universal-tool/blob/main/docs/PRIVACY.md` |
-| Screenshots 1080×1920 | `fastlane/metadata/android/*/images/phoneScreenshots/1-4.png`, per language (made by `python scripts/store-art.py` from `art/screens`) |
+| Screenshots 1080×1920 | `fastlane/metadata/android/*/images/phoneScreenshots/1-4.png`, per language (made by `python scripts/store-art.py` from `art/screens/<lang>`, the app in that language) |
 | Wide promo picture 4320×1920 | `art/promo/<lang>.png` (the four screenshots side by side) |
 | Posts for Telegram / VK, GitHub description and topics | [promo.md](promo.md) |
 

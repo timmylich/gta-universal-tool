@@ -1,4 +1,4 @@
-"""Store and promo art from the raw screenshots in art/screens: per language one wide panorama
+"""Store and promo art from the raw screenshots in art/screens/<lang> (the app in that language): per language one wide panorama
 (art/promo/<lang>.png, 4320x1920) and its four 1080x1920 slices as store screenshots
 (fastlane/metadata/android/<lang>/images/phoneScreenshots/1-4.png). The background runs across the slices,
 so they read as one picture side by side. Needs Windows fonts (Segoe UI). Run: python scripts/store-art.py"""
@@ -106,11 +106,11 @@ def render(lang, shots, icon, bg):
 
 
 def main():
-  shots = [Image.open(os.path.join(ROOT, f'art/screens/{i}.png')).convert('RGB') for i in range(1, N + 1)]
   icon = Image.open(os.path.join(ROOT, 'fastlane/metadata/android/en-US/images/icon.png')).convert('RGB')
   bg = background()
   os.makedirs(os.path.join(ROOT, 'art/promo'), exist_ok=True)
   for lang in TEXT:
+    shots = [Image.open(os.path.join(ROOT, f'art/screens/{lang}/{i}.png')).convert('RGB') for i in range(1, N + 1)]
     pano = render(lang, shots, icon, bg)
     pano.save(os.path.join(ROOT, f'art/promo/{lang}.png'), optimize=True)
     out = os.path.join(ROOT, f'fastlane/metadata/android/{lang}/images/phoneScreenshots')
